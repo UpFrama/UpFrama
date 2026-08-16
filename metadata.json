@@ -1,0 +1,6 @@
+{
+  "name": "UpFrama - AI Workflow Automation",
+  "description": "Enterprise and startup workflow automation for manufacturing, warehousing, and logistics operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
