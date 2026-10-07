@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, ShieldCheck } from 'lucide-react';
+import { X, Copy, Check, ShieldCheck, Download } from 'lucide-react';
 import { UpframaIcon, UpframaLogo, UpframaBanner } from './UpframaLogo';
 
 interface BrandAssetsModalProps {
@@ -19,34 +19,33 @@ export const BrandAssetsModal: React.FC<BrandAssetsModalProps> = ({ isOpen, onCl
     setTimeout(() => setCopiedIndex(null), 2500);
   };
 
-  const svgMonogramCode = `<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 27 20 L 36 20 L 36 60 C 36 71 43 78 50 78 C 57 78 64 71 64 60 L 64 48 L 73 48 L 73 40 L 64 40 L 64 30 C 64 24 60 20 54 20 L 52 20 L 52 28 L 54 28 C 55.5 28 56 28.5 56 30 L 56 40 L 52 40 L 52 48 L 56 48 L 56 60 C 56 66 53 70 50 70 C 47 70 44 66 44 60 L 44 20 L 27 20 Z" fill="#F26522"/>
-  <path d="M 54 20 C 65 20 73 26 73 37 L 73 40 L 64 40 L 64 37 C 64 30 59 28 54 28 L 52 28 L 52 20 L 54 20 Z" fill="#F26522"/>
-  <path d="M 64 48 L 73 48 L 73 55 L 64 55 Z" fill="#F26522"/>
-  <path d="M 50 30 L 63 46 L 55 46 L 55 74 L 45 74 L 45 46 L 37 46 L 50 30 Z" fill="#DE5516"/>
+  const svgMonogramCode = `<svg width="500" height="560" viewBox="0 0 500 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 22 22 L 115 22 L 115 330 C 115 385 145 425 195 440 L 195 558 C 105 540 22 455 22 340 Z" stroke="#F26522" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 285 165 C 290 85 335 22 415 22 L 485 22 L 485 105 L 415 105 C 395 105 382 118 382 140 L 382 185 L 485 185 L 485 268 L 382 268 L 382 335 C 382 385 352 425 305 440 L 305 558 C 390 540 485 455 485 340 L 485 268" stroke="#F26522" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 205 558 L 205 270 L 122 270 L 250 145 L 378 270 L 295 270 L 295 558 Z" fill="#BA3700" stroke="#F26522" stroke-width="18" stroke-linejoin="round" stroke-linecap="round"/>
 </svg>`;
 
   const assets = [
     {
-      id: 'official-vertical-lockup',
-      title: 'Official Vertical Brand Lockup',
-      description: 'Icon on top with "Up" (orange) and "frama" (white / dark) underneath.',
+      id: 'official-light-lockup',
+      title: 'Official Light Horizontal Lockup',
+      description: 'Horizontal lockup optimized for light backgrounds, reports, and headers.',
       type: 'logos',
       render: (
-        <div className="w-full h-44 rounded-xl bg-white border border-zinc-200 flex flex-col items-center justify-center p-4">
-          <UpframaLogo size="md" layout="vertical" variant="light" />
+        <div className="w-full h-40 rounded-2xl bg-white border border-slate-200 flex items-center justify-center p-4 shadow-xs">
+          <UpframaLogo size="lg" layout="horizontal" variant="light" showBadge={true} badgeText="AI Ops" />
         </div>
       ),
       svgString: svgMonogramCode,
-      downloadName: 'upframa-vertical-official.svg'
+      downloadName: 'upframa-horizontal-light.svg'
     },
     {
       id: 'primary-dark-horizontal',
       title: 'Dark Horizontal Signature',
-      description: 'Horizontal navbar and footer lockup for obsidian and dark interfaces.',
+      description: 'Horizontal lockup for obsidian, slate, and dark interfaces.',
       type: 'logos',
       render: (
-        <div className="w-full h-44 rounded-xl bg-[#111113] border border-zinc-800 flex items-center justify-center p-4">
+        <div className="w-full h-40 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center p-4 shadow-xs">
           <UpframaLogo size="lg" layout="horizontal" variant="dark" showBadge={false} />
         </div>
       ),
@@ -59,7 +58,7 @@ export const BrandAssetsModal: React.FC<BrandAssetsModalProps> = ({ isOpen, onCl
       description: 'Standalone geometric glyph for app icons, favicons, and telemetry.',
       type: 'logos',
       render: (
-        <div className="w-full h-44 rounded-xl bg-[#111113] border border-zinc-800 flex items-center justify-center p-4">
+        <div className="w-full h-40 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center p-4 shadow-xs">
           <UpframaIcon size={64} variant="clean" />
         </div>
       ),
@@ -73,7 +72,7 @@ export const BrandAssetsModal: React.FC<BrandAssetsModalProps> = ({ isOpen, onCl
       type: 'banners',
       render: (
         <div className="w-full">
-          <UpframaBanner className="scale-90 origin-center" />
+          <UpframaBanner className="scale-90 origin-center rounded-2xl" />
         </div>
       ),
       svgString: svgMonogramCode,
@@ -84,125 +83,106 @@ export const BrandAssetsModal: React.FC<BrandAssetsModalProps> = ({ isOpen, onCl
   const filteredAssets = activeTab === 'all' ? assets : assets.filter(a => a.type === activeTab);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-3xl max-h-[90vh] bg-[#111113] border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="relative w-full max-w-3xl max-h-[90vh] bg-white/90 backdrop-blur-2xl border border-white/90 rounded-3xl shadow-[0_25px_60px_rgba(15,23,42,0.25),inset_0_1px_2px_rgba(255,255,255,1)] overflow-hidden flex flex-col">
         
         {/* Header */}
-        <div className="px-6 py-4 border-b border-zinc-800 bg-[#09090B] flex items-center justify-between">
+        <div className="px-6 py-4.5 border-b border-slate-200/50 bg-white/60 backdrop-blur-md flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-white font-display">
+            <h3 className="text-base sm:text-lg font-bold text-slate-950 font-display">
               UpFrama Brand Kit & Logos
             </h3>
-            <p className="text-xs text-zinc-400">
-              Official brand identity marks, vector SVGs, and lockups.
+            <p className="text-xs text-slate-500">
+              Official vector SVGs, lockups, and design marks.
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-full bg-white/80 backdrop-blur-xs border border-white/90 text-slate-500 hover:text-slate-900 hover:bg-white transition-colors cursor-pointer shadow-xs"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tab Filters */}
-        <div className="px-6 py-2.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5">
+        <div className="px-6 py-3 border-b border-slate-200/50 bg-white/40 backdrop-blur-sm flex items-center gap-2">
+          {(['all', 'logos', 'banners'] as const).map((tab) => (
             <button
-              onClick={() => setActiveTab('all')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                activeTab === 'all' ? 'bg-zinc-100 text-zinc-900 font-semibold' : 'text-zinc-400 hover:text-zinc-200'
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
+                activeTab === tab 
+                  ? 'bg-[#F26522] text-white shadow-xs' 
+                  : 'bg-white/70 border border-white/80 text-slate-600 hover:text-slate-900'
               }`}
             >
-              All ({assets.length})
+              {tab}
             </button>
-            <button
-              onClick={() => setActiveTab('logos')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                activeTab === 'logos' ? 'bg-zinc-100 text-zinc-900 font-semibold' : 'text-zinc-400 hover:text-zinc-200'
-              }`}
-            >
-              Logos (3)
-            </button>
-            <button
-              onClick={() => setActiveTab('banners')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                activeTab === 'banners' ? 'bg-zinc-100 text-zinc-900 font-semibold' : 'text-zinc-400 hover:text-zinc-200'
-              }`}
-            >
-              Banners (1)
-            </button>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono text-zinc-500">
-            <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-[#F26522]" /> #F26522
-            </span>
-          </div>
+          ))}
         </div>
 
-        {/* Assets Grid */}
-        <div className="p-6 overflow-y-auto space-y-4 flex-grow">
+        {/* Content Body */}
+        <div className="p-6 overflow-y-auto space-y-6 flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredAssets.map((asset, idx) => (
-              <div
+              <div 
                 key={asset.id}
-                className="p-4 rounded-xl bg-zinc-950 border border-zinc-850 flex flex-col justify-between gap-3"
+                className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.03),inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-col justify-between"
               >
                 <div>
-                  <div className="mb-2.5">
+                  <div className="mb-3">
                     {asset.render}
                   </div>
-
-                  <div>
-                    <h4 className="text-sm font-semibold text-white">
-                      {asset.title}
-                    </h4>
-                    <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">
-                      {asset.description}
-                    </p>
-                  </div>
+                  <h4 className="text-sm font-bold text-slate-900">
+                    {asset.title}
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {asset.description}
+                  </p>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="pt-2.5 border-t border-zinc-800/80 flex items-center justify-between gap-2">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase">
-                    Vector SVG
-                  </span>
-                  
+                <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between gap-2">
                   <button
                     onClick={() => handleCopySvg(idx, asset.svgString)}
-                    className="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 font-mono flex items-center gap-1 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-950 transition-colors cursor-pointer shadow-xs"
                   >
                     {copiedIndex === idx ? (
                       <>
-                        <Check className="w-3 h-3 text-emerald-400" />
-                        <span className="text-emerald-400 font-medium">Copied SVG</span>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3 h-3 text-[#F26522]" />
+                        <Copy className="w-3.5 h-3.5" />
                         <span>Copy SVG</span>
                       </>
                     )}
                   </button>
-                </div>
 
+                  <a
+                    href={`data:image/svg+xml;utf8,${encodeURIComponent(asset.svgString)}`}
+                    download={asset.downloadName}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F26522] text-white text-xs font-semibold hover:bg-[#DE5516] transition-colors shadow-xs"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download</span>
+                  </a>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="px-6 py-3 bg-[#09090B] border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-zinc-400" />
-            <span>UpFrama Brand Kit</span>
-          </div>
-          <button
+        {/* Footer info */}
+        <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 text-xs text-slate-500 flex items-center justify-between">
+          <span className="flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            Official Vector Brand Assets
+          </span>
+          <button 
             onClick={onClose}
-            className="px-3 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors cursor-pointer border border-zinc-800"
+            className="text-slate-700 font-semibold hover:underline"
           >
             Close
           </button>

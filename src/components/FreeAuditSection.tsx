@@ -24,7 +24,7 @@ export const FreeAuditSection: React.FC<FreeAuditSectionProps> = ({ onOpenAudit 
     { title: 'Scope Analysis', desc: 'Identify high-friction vs automatable steps' },
     { title: 'Workflow Blueprint', desc: 'Step-by-step logic & trigger architecture' },
     { title: 'System Connectors', desc: 'Mapping of ERP, APIs, emails & spreadsheets' },
-    { title: 'Fixed Estimate', desc: 'Clear timeline, scope, and $250+ starter pricing' }
+    { title: 'Usage Estimate', desc: 'Clear timeline, scope, and transparent usage-based pricing' }
   ];
 
   return (

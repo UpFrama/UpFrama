@@ -1,6 +1,6 @@
 {
   "name": "UpFrama - AI Workflow Automation",
-  "description": "Enterprise and startup workflow automation for manufacturing, warehousing, and logistics operations.",
+  "description": "Autonomous 24/7 AI Voice Calling Agents with sub-350ms latency, calendar booking, CRM sync, and telephone integration.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

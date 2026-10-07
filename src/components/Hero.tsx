@@ -3,534 +3,436 @@ import { motion } from 'motion/react';
 import { 
   ArrowRight, 
   CheckCircle2, 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  Zap, 
-  FileText, 
-  Boxes, 
-  Mail, 
-  Database, 
-  Smartphone, 
-  BarChart3, 
-  Cpu, 
-  Terminal, 
-  Check, 
-  Layers, 
-  Clock, 
-  ShieldCheck, 
   Sparkles,
   ChevronRight,
-  Activity,
-  RefreshCw
+  ShieldCheck,
+  Zap,
+  PhoneCall,
+  Mic,
+  Calendar,
+  MessageSquare,
+  Volume2,
+  Clock,
+  Check,
+  Database,
+  Users
 } from 'lucide-react';
-import heroBgImg from '../assets/images/hero_abstract_bg_1786824926194.jpg';
 
 interface HeroProps {
   onOpenAudit: () => void;
   onExploreSolutions: () => void;
 }
 
-interface WorkflowStep {
+interface CallScenario {
   id: string;
-  stepNumber: string;
-  category: 'source' | 'engine' | 'sync' | 'notify';
   title: string;
-  subtitle: string;
-  icon: string;
+  badge: string;
+  callerQuery: string;
+  aiResponse: string;
+  callerReply: string;
+  systemActions: string[];
   latency: string;
-  details: string;
-  payload: {
-    recordType: string;
-    sourceApp: string;
-    targetApp: string;
-    fieldsProcessed: number;
-    accuracy: string;
-    sample: Record<string, string | number>;
-  };
+  callDuration: string;
 }
 
-interface WorkflowPreset {
-  id: string;
-  name: string;
-  tag: string;
-  description: string;
-  timeSaved: string;
-  estAnnualSavings: string;
-  nodes: WorkflowStep[];
-  logs: string[];
-}
-
-// Static Presets defined outside component to prevent re-allocation & reference changes
-const WORKFLOW_PRESETS: WorkflowPreset[] = [
+const CALL_SCENARIOS: CallScenario[] = [
   {
-    id: 'invoice-po',
-    name: 'Invoice & PO Auto-Entry',
-    tag: 'Accounting & Operations',
-    description: 'Incoming customer invoices & supplier POs are ingested from Outlook/Gmail, parsed accurately, and posted directly into QuickBooks & ERP.',
-    timeSaved: '18 hrs / week',
-    estAnnualSavings: '$38,500 / yr',
-    nodes: [
-      {
-        id: 'n1',
-        stepNumber: '01',
-        category: 'source',
-        title: 'Document Ingest',
-        subtitle: 'Outlook / Gmail / Uploads',
-        icon: 'mail',
-        latency: '45ms',
-        details: 'Detects new PO #4892 from email attachment (1.8MB PDF)',
-        payload: {
-          recordType: 'Purchase Order PDF',
-          sourceApp: 'Microsoft Outlook 365',
-          targetApp: 'UpFrama AI Core',
-          fieldsProcessed: 18,
-          accuracy: '99.98%',
-          sample: {
-            'Vendor': 'Apex Global Components',
-            'PO_Number': 'PO-2026-8941',
-            'Total_Amount': '$14,850.00',
-            'Line_Items': 14,
-            'Currency': 'USD'
-          }
-        }
-      },
-      {
-        id: 'n2',
-        stepNumber: '02',
-        category: 'engine',
-        title: 'Intelligent Parser',
-        subtitle: 'Multi-line AI Extractor',
-        icon: 'cpu',
-        latency: '240ms',
-        details: 'Extracts line items, SKUs, tax calculations, and vendor terms',
-        payload: {
-          recordType: 'Structured JSON Payload',
-          sourceApp: 'Vision OCR Engine',
-          targetApp: 'ERP Validation Filter',
-          fieldsProcessed: 24,
-          accuracy: '100%',
-          sample: {
-            'SKU_1': 'ST-409 (Qty: 500)',
-            'SKU_2': 'BR-102 (Qty: 250)',
-            'Tax_Calculated': '$1,188.00',
-            'Terms': 'Net 30',
-            'Confidence': '1.000'
-          }
-        }
-      },
-      {
-        id: 'n3',
-        stepNumber: '03',
-        category: 'sync',
-        title: 'ERP & Ledger Sync',
-        subtitle: 'QuickBooks / SAP / Excel',
-        icon: 'database',
-        latency: '110ms',
-        details: 'Records invoice directly in general ledger & updates inventory balance',
-        payload: {
-          recordType: 'Ledger Transaction',
-          sourceApp: 'UpFrama Sync Router',
-          targetApp: 'QuickBooks Enterprise',
-          fieldsProcessed: 16,
-          accuracy: '100%',
-          sample: {
-            'Status': 'POSTED',
-            'Voucher_ID': 'VCH-98104',
-            'GL_Account': '2010 - Accounts Payable',
-            'Inventory_Updated': 'Yes (+750 units)',
-            'Match_Score': '100%'
-          }
-        }
-      },
-      {
-        id: 'n4',
-        stepNumber: '04',
-        category: 'notify',
-        title: 'Instant Confirmation',
-        subtitle: 'WhatsApp / Mobile Alert',
-        icon: 'smartphone',
-        latency: '80ms',
-        details: 'Sends 1-tap manager approval & warehouse arrival notification',
-        payload: {
-          recordType: 'Push / WhatsApp Alert',
-          sourceApp: 'Notification Service',
-          targetApp: 'Operations Mobile Team',
-          fieldsProcessed: 6,
-          accuracy: 'Delivered',
-          sample: {
-            'Recipient': 'Ops Lead (+1 415-***-8821)',
-            'Message': 'PO #4892 posted successfully ($14,850)',
-            'Delivery_Status': 'Delivered (Read)',
-            'Timestamp': '10:42:01.63',
-            'Priority': 'Normal'
-          }
-        }
-      }
+    id: 'appointment-booking',
+    title: 'Appointment Booking',
+    badge: 'Calendar & Scheduling',
+    callerQuery: '"Hi, do you have any service appointments available this Thursday morning?"',
+    aiResponse: '"Hello! Yes, checking our schedule right now... We have an opening at 10:30 AM with our senior technician. Would you like me to reserve that slot for you?"',
+    callerReply: '"Yes please, 10:30 AM works great. My name is David Miller."',
+    systemActions: [
+      'Verified real-time calendar availability (32ms)',
+      'Reserved 10:30 AM slot in Google Calendar',
+      'Sent instant SMS confirmation with reschedule link'
     ],
-    logs: [
-      '10:42:01.04 [INGEST] PDF attachment detected: "PO_Apex_8941.pdf" (1.8MB)',
-      '10:42:01.09 [PARSER] Multi-modal extraction initialized (14 line items identified)',
-      '10:42:01.33 [VALIDATE] Cross-referenced vendor DB: Apex Global Components (ID: V-841)',
-      '10:42:01.44 [LEDGER] QuickBooks API transaction created (Ref: VCH-98104)',
-      '10:42:01.55 [INVENTORY] Stock quantities updated (+750 units allocated to Bay 4)',
-      '10:42:01.63 [NOTIFY] WhatsApp alert delivered to Operations Manager'
-    ]
+    latency: '240ms',
+    callDuration: '00:38'
   },
   {
-    id: 'smart-stock',
-    name: 'Smart Stock & Auto-Reorder',
-    tag: 'Warehouse & Supply Chain',
-    description: 'Monitors real-time stock levels across ERP and spreadsheets, forecasts shortages, and drafts supplier reorder emails automatically.',
-    timeSaved: '14 hrs / week',
-    estAnnualSavings: '$32,000 / yr',
-    nodes: [
-      {
-        id: 's1',
-        stepNumber: '01',
-        category: 'source',
-        title: 'Stock Monitor',
-        subtitle: 'Live Inventory Feed',
-        icon: 'boxes',
-        latency: '60ms',
-        details: 'Detects SKU #ST-409 stock level is below safety margin (18 / 100 units)',
-        payload: {
-          recordType: 'Inventory Threshold Event',
-          sourceApp: 'Warehouse DB / Excel',
-          targetApp: 'Replenishment Engine',
-          fieldsProcessed: 12,
-          accuracy: 'Real-time',
-          sample: {
-            'SKU': 'ST-409 (High-Temp Valve)',
-            'Current_Qty': 18,
-            'Min_Safety_Stock': 100,
-            'Burn_Rate': '14 units/day',
-            'Facility': 'Warehouse East #2'
-          }
-        }
-      },
-      {
-        id: 's2',
-        stepNumber: '02',
-        category: 'engine',
-        title: 'Forecast Engine',
-        subtitle: 'Lead Time & Batch Sizing',
-        icon: 'cpu',
-        latency: '180ms',
-        details: 'Calculates optimal reorder batch of 500 units based on supplier lead time',
-        payload: {
-          recordType: 'Replenishment Calculation',
-          sourceApp: 'Predictive Model',
-          targetApp: 'PO Generator',
-          fieldsProcessed: 15,
-          accuracy: '99.4%',
-          sample: {
-            'Optimal_Order_Qty': 500,
-            'Supplier_Lead_Time': '4 Days',
-            'Estimated_Stockout': 'Tomorrow 3:00 PM',
-            'Contract_Rate': '$18.50 / unit',
-            'Safety_Buffer': '12 Days'
-          }
-        }
-      },
-      {
-        id: 's3',
-        stepNumber: '03',
-        category: 'sync',
-        title: 'Draft PO Creator',
-        subtitle: 'Auto-Vendor Rates',
-        icon: 'fileText',
-        latency: '95ms',
-        details: 'Drafts vendor purchase order with pre-negotiated discount rates',
-        payload: {
-          recordType: 'Draft Purchase Order',
-          sourceApp: 'PO Generator',
-          targetApp: 'Supplier Portal / Email',
-          fieldsProcessed: 14,
-          accuracy: '100%',
-          sample: {
-            'Supplier': 'Precision Valve Corp',
-            'Draft_PO': 'PO-DRAFT-4401',
-            'Total': '$9,250.00',
-            'Delivery_Target': 'Thursday 08:00',
-            'Payment_Terms': 'Net 45'
-          }
-        }
-      },
-      {
-        id: 's4',
-        stepNumber: '04',
-        category: 'notify',
-        title: '1-Tap Approval',
-        subtitle: 'Slack / Mobile Action',
-        icon: 'smartphone',
-        latency: '50ms',
-        details: 'Delivers 1-tap "Approve & Send" card to Warehouse Director',
-        payload: {
-          recordType: 'Approval Request',
-          sourceApp: 'Notification Broker',
-          targetApp: 'Slack / WhatsApp',
-          fieldsProcessed: 8,
-          accuracy: 'Instant',
-          sample: {
-            'Action_Required': 'Approve PO-DRAFT-4401',
-            'One_Click_Send': 'Enabled',
-            'Status': 'Awaiting 1-Tap Tap',
-            'Channel': '#procurement-approvals',
-            'Urgency': 'High'
-          }
-        }
-      }
+    id: 'customer-support',
+    title: 'Customer Support & FAQs',
+    badge: '24/7 Reception & FAQs',
+    callerQuery: '"Hi, I need to check the status of my order #88412."',
+    aiResponse: '"I can check that for you right now David. Looking up order #88412... It was dispatched this morning and is on the FedEx delivery truck, scheduled to arrive by 2:15 PM today."',
+    callerReply: '"That was so fast, thank you so much for the quick update!"',
+    systemActions: [
+      'Queried live order database & FedEx Freight API (45ms)',
+      'Sent driver tracking link via SMS to caller mobile',
+      'Logged complete call transcript to support CRM'
     ],
-    logs: [
-      '10:42:01.02 [MONITOR] SKU ST-409 triggered low stock alert (18 < 100 threshold)',
-      '10:42:01.08 [FORECAST] Calculated reorder quantity: 500 units (4-day supplier lead time)',
-      '10:42:01.26 [VENDOR] Pulled preferred supplier rates from Precision Valve Corp',
-      '10:42:01.35 [DRAFT_PO] PO-DRAFT-4401 generated with total value $9,250.00',
-      '10:42:01.40 [DISPATCH] Sent 1-tap approval card to #procurement-approvals'
-    ]
+    latency: '260ms',
+    callDuration: '00:42'
   },
   {
-    id: 'daily-report',
-    name: 'Daily Executive Brief',
-    tag: 'Management & Operations',
-    description: 'Pulls shift logs, sales figures, and operational metrics from multiple spreadsheets into a single daily summary delivered to leadership at 6 PM.',
-    timeSaved: '10 hrs / week',
-    estAnnualSavings: '$24,000 / yr',
-    nodes: [
-      {
-        id: 'r1',
-        stepNumber: '01',
-        category: 'source',
-        title: 'Spreadsheet Harvest',
-        subtitle: 'Excel / Google Sheets / ERP',
-        icon: 'database',
-        latency: '75ms',
-        details: 'Aggregates 4 distributed shift spreadsheets & daily sales tallies',
-        payload: {
-          recordType: 'Multi-Source Data Aggregation',
-          sourceApp: '4x Distributed Spreadsheets',
-          targetApp: 'Analytics Pipeline',
-          fieldsProcessed: 48,
-          accuracy: '100%',
-          sample: {
-            'Files_Synced': 'Shift_A.xlsx, Shift_B.xlsx, Orders.csv',
-            'Total_Rows_Read': 1420,
-            'Duplicates_Removed': 12,
-            'Sync_Latency': '75ms',
-            'Validation': 'Passed (0 errors)'
-          }
-        }
-      },
-      {
-        id: 'r2',
-        stepNumber: '02',
-        category: 'engine',
-        title: 'KPI & Anomaly Filter',
-        subtitle: 'Automated Crunching',
-        icon: 'cpu',
-        latency: '220ms',
-        details: 'Computes daily output, scrap rate, margin variance, and bottlenecks',
-        payload: {
-          recordType: 'KPI Compilation',
-          sourceApp: 'Analytics Core',
-          targetApp: 'Executive Template',
-          fieldsProcessed: 20,
-          accuracy: 'Verified',
-          sample: {
-            'Daily_Production': '4,850 Units (104% to target)',
-            'Scrap_Rate': '0.42% (Down 0.18%)',
-            'Total_Revenue': '$68,400.00',
-            'Efficiency_Score': '98.6%',
-            'Variance': '+4.1%'
-          }
-        }
-      },
-      {
-        id: 'r3',
-        stepNumber: '03',
-        category: 'sync',
-        title: 'Executive PDF Formatter',
-        subtitle: 'Clean Visual Summary',
-        icon: 'fileText',
-        latency: '90ms',
-        details: 'Generates branded 1-page visual summary PDF with highlighted trends',
-        payload: {
-          recordType: 'Executive Report Document',
-          sourceApp: 'PDF Generator',
-          targetApp: 'Email & WhatsApp Dispatch',
-          fieldsProcessed: 10,
-          accuracy: 'Branded',
-          sample: {
-            'Document_Title': 'Daily Executive Briefing',
-            'Pages': '1 Page (High Density)',
-            'Format': 'PDF + Mobile Summary',
-            'Charts_Included': 'Output, Scrap, Variance',
-            'Status': 'Compiled'
-          }
-        }
-      },
-      {
-        id: 'r4',
-        stepNumber: '04',
-        category: 'notify',
-        title: 'Evening Delivery',
-        subtitle: 'Direct Inbox at 6:00 PM',
-        icon: 'mail',
-        latency: '40ms',
-        details: 'Delivered directly to executive emails & team WhatsApp group',
-        payload: {
-          recordType: 'Scheduled Dispatch',
-          sourceApp: 'Email & Messaging Service',
-          targetApp: 'Leadership Team (5 Recipients)',
-          fieldsProcessed: 5,
-          accuracy: 'Delivered',
-          sample: {
-            'Recipients': 'CEO, COO, Head of Ops',
-            'Delivery_Time': '18:00:00 (Daily)',
-            'Attachment': 'executive-brief.pdf',
-            'SMS_Summary': 'Sent to 3 numbers',
-            'Confirmation': '100% Delivered'
-          }
-        }
-      }
+    id: 'after-hours-leads',
+    title: 'After-Hours Lead Intake',
+    badge: 'Lead Qualification',
+    callerQuery: '"Hi, I am looking for a commercial quote for our 12,000 sq ft office facility."',
+    aiResponse: '"Thanks for reaching out! I can collect the key details and have our operations director call you tomorrow morning at 9:00 AM. What is the best direct number for you?"',
+    callerReply: '"You can reach me at this number, ask for Rachel from Apex Partners."',
+    systemActions: [
+      'Calculated commercial lead score: High Priority (12k sq ft)',
+      'Scheduled morning briefing on Sales Director calendar',
+      'Pushed instant notification to team Slack channel'
     ],
-    logs: [
-      '18:00:00.00 [CRON] Daily 6:00 PM operational harvest triggered',
-      '18:00:00.08 [HARVEST] 4 distributed spreadsheets read and normalized (1,420 rows)',
-      '18:00:00.30 [ANALYTICS] Production output calculated: 4,850 units (104% to target)',
-      '18:00:00.39 [PDF] Branded 1-page Executive Brief generated',
-      '18:00:00.43 [DISPATCH] Email & WhatsApp delivered to leadership team (5 recipients)'
-    ]
+    latency: '220ms',
+    callDuration: '00:49'
   }
 ];
 
-// Memoized, hardware-accelerated Background Component to prevent repaints/flicker/glitches
-const HeroBackground = memo(() => {
+// Interactive neural particle network with natural organic movement and subtle depth blur
+const HeroNeuralCanvas = memo(() => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Mouse tracking for fluid hover interaction
+    const mouse = {
+      x: -1000,
+      y: -1000,
+      targetX: -1000,
+      targetY: -1000,
+      active: false
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      ) {
+        mouse.targetX = e.clientX - rect.left;
+        mouse.targetY = e.clientY - rect.top;
+        mouse.active = true;
+      } else {
+        mouse.active = false;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      mouse.active = false;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!canvas || e.touches.length === 0) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      if (
+        touch.clientX >= rect.left &&
+        touch.clientX <= rect.right &&
+        touch.clientY >= rect.top &&
+        touch.clientY <= rect.bottom
+      ) {
+        mouse.targetX = touch.clientX - rect.left;
+        mouse.targetY = touch.clientY - rect.top;
+        mouse.active = true;
+      } else {
+        mouse.active = false;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleMouseLeave);
+
+    const nodeCount = 52;
+    const nodes: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      baseRadius: number;
+      radius: number;
+      phase: number;
+      pulseSpeed: number;
+      color: string;
+      glowColor: string;
+    }> = [];
+
+    const colorPalette = [
+      { color: 'rgba(242, 101, 34, 0.85)', glow: 'rgba(242, 101, 34, 0.22)' }, // Brand Orange
+      { color: 'rgba(56, 189, 248, 0.85)', glow: 'rgba(56, 189, 248, 0.22)' }, // Sky Blue
+      { color: 'rgba(251, 191, 36, 0.85)', glow: 'rgba(251, 191, 36, 0.22)' }  // Amber
+    ];
+
+    for (let i = 0; i < nodeCount; i++) {
+      const palette = colorPalette[i % colorPalette.length];
+      const baseRadius = 2.2 + Math.random() * 1.8;
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.38,
+        vy: (Math.random() - 0.5) * 0.38,
+        baseRadius,
+        radius: baseRadius,
+        phase: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.6 + Math.random() * 0.8,
+        color: palette.color,
+        glowColor: palette.glow
+      });
+    }
+
+    // Active traveling data pulses along connections
+    const pulses: Array<{
+      fromIdx: number;
+      toIdx: number;
+      progress: number;
+      speed: number;
+    }> = [];
+
+    let time = 0;
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+      time += 0.012;
+
+      // Smooth mouse position interpolation
+      if (mouse.active) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.15;
+        mouse.y += (mouse.targetY - mouse.y) * 0.15;
+      } else {
+        mouse.x += (-1000 - mouse.x) * 0.1;
+        mouse.y += (-1000 - mouse.y) * 0.1;
+      }
+
+      // 1. Move and update nodes with natural organic drift
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+
+        // Smooth wave-like harmonic motion
+        n.x += n.vx + Math.sin(time * n.pulseSpeed + n.phase) * 0.18;
+        n.y += n.vy + Math.cos(time * n.pulseSpeed + n.phase) * 0.18;
+
+        // Subtle gentle breathing radius pulsation
+        n.radius = n.baseRadius + Math.sin(time * 1.4 + n.phase) * 0.5;
+
+        // Smooth boundary reflection
+        if (n.x < 10) { n.x = 10; n.vx *= -1; }
+        if (n.x > width - 10) { n.x = width - 10; n.vx *= -1; }
+        if (n.y < 10) { n.y = 10; n.vy *= -1; }
+        if (n.y > height - 10) { n.y = height - 10; n.vy *= -1; }
+
+        // Natural organic mouse interaction (smooth sinusoidal deflection)
+        if (mouse.active) {
+          const dx = mouse.x - n.x;
+          const dy = mouse.y - n.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = 190;
+
+          if (dist < maxDist && dist > 4) {
+            // Smooth bell curve force: gentle attraction that softens near the center
+            const force = Math.sin((dist / maxDist) * Math.PI) * 0.55;
+            n.x += (dx / dist) * force;
+            n.y += (dy / dist) * force;
+            n.radius = n.baseRadius + (1 - dist / maxDist) * 1.4;
+          }
+        }
+      }
+
+      // 2. Draw connections with soft two-tone gradients
+      const maxDistance = 155;
+      for (let i = 0; i < nodes.length; i++) {
+        const n1 = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n2 = nodes[j];
+          const dx = n1.x - n2.x;
+          const dy = n1.y - n2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < maxDistance) {
+            const normalized = 1 - dist / maxDistance;
+            let alpha = normalized * normalized * 0.32;
+
+            // Extra gentle illumination if near mouse
+            if (mouse.active) {
+              const midX = (n1.x + n2.x) * 0.5;
+              const midY = (n1.y + n2.y) * 0.5;
+              const dToMouse = Math.hypot(mouse.x - midX, mouse.y - midY);
+              if (dToMouse < 160) {
+                alpha += (1 - dToMouse / 160) * 0.22;
+              }
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(n2.x, n2.y);
+
+            // Two-tone gradient connecting the nodes
+            const grad = ctx.createLinearGradient(n1.x, n1.y, n2.x, n2.y);
+            grad.addColorStop(0, n1.color.replace('0.85', `${Math.min(0.65, alpha)}`));
+            grad.addColorStop(1, n2.color.replace('0.85', `${Math.min(0.65, alpha)}`));
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = normalized * 1.2 + 0.5;
+            ctx.stroke();
+
+            // Spawn occasional flowing data pulses
+            if (Math.random() < 0.0004 && pulses.length < 8) {
+              pulses.push({
+                fromIdx: i,
+                toIdx: j,
+                progress: 0,
+                speed: 0.012 + Math.random() * 0.014
+              });
+            }
+          }
+        }
+      }
+
+      // 3. Render glowing traveling pulses
+      for (let p = pulses.length - 1; p >= 0; p--) {
+        const pulse = pulses[p];
+        pulse.progress += pulse.speed;
+
+        if (pulse.progress >= 1) {
+          pulses.splice(p, 1);
+          continue;
+        }
+
+        const nStart = nodes[pulse.fromIdx];
+        const nEnd = nodes[pulse.toIdx];
+        if (!nStart || !nEnd) {
+          pulses.splice(p, 1);
+          continue;
+        }
+
+        const px = nStart.x + (nEnd.x - nStart.x) * pulse.progress;
+        const py = nStart.y + (nEnd.y - nStart.y) * pulse.progress;
+
+        ctx.beginPath();
+        ctx.arc(px, py, 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = '#F26522';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      // 4. Draw layered nodes with soft ambient glow and specular shine
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+
+        // Soft outer ambient halo
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = n.glowColor;
+        ctx.fill();
+
+        // Inner solid core
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = n.color;
+        ctx.fill();
+
+        // Subtle specular highlight for natural depth
+        ctx.beginPath();
+        ctx.arc(n.x - n.radius * 0.3, n.y - n.radius * 0.3, n.radius * 0.35, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.fill();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   return (
-    <div 
-      className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden"
-      style={{
-        transform: 'translate3d(0, 0, 0)',
-        willChange: 'transform',
-        backfaceVisibility: 'hidden',
-        contain: 'paint layout'
-      }}
-    >
-      <img
-        src={heroBgImg}
-        alt=""
-        aria-hidden="true"
-        className="w-full h-full object-cover object-center opacity-70 scale-100"
-        referrerPolicy="no-referrer"
-        loading="eager"
-        decoding="async"
-        style={{
-          transform: 'translate3d(0, 0, 0)',
-          backfaceVisibility: 'hidden'
-        }}
-      />
-      {/* Soft gradient masks */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#09090B]/60 via-[#09090B]/30 to-[#09090B]/85" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#09090B]/20 to-[#09090B]/60" />
-      
-      {/* Ambient Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#F26522]/20 via-[#F26522]/5 to-transparent blur-[130px] rounded-full" />
-    </div>
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-75 blur-[2px] z-0" 
+    />
   );
 });
 
-HeroBackground.displayName = 'HeroBackground';
+HeroNeuralCanvas.displayName = 'HeroNeuralCanvas';
 
 export const Hero: React.FC<HeroProps> = ({ onOpenAudit, onExploreSolutions }) => {
-  const [activePresetIndex, setActivePresetIndex] = useState(0);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [playbackSpeed, setPlaybackSpeed] = useState<1 | 2>(1);
-  const [customSelectedNodeIndex, setCustomSelectedNodeIndex] = useState<number | null>(null);
-  const [logFilter, setLogFilter] = useState<'all' | 'latest'>('all');
-  const logsContainerRef = useRef<HTMLDivElement>(null);
-
-  const currentPreset = WORKFLOW_PRESETS[activePresetIndex] || WORKFLOW_PRESETS[0];
-
-  // Pure derived state - zero risk of cascading update loops
-  const effectiveNodeIndex = customSelectedNodeIndex !== null ? customSelectedNodeIndex : activeStepIndex;
-  const selectedNode = currentPreset.nodes[effectiveNodeIndex] || currentPreset.nodes[0];
-  const terminalLogs = logFilter === 'latest' 
-    ? [currentPreset.logs[Math.min(activeStepIndex, currentPreset.logs.length - 1)]]
-    : currentPreset.logs.slice(0, Math.min(activeStepIndex + 2, currentPreset.logs.length));
-
-  // Single cleanly controlled interval timer
-  useEffect(() => {
-    if (!isPlaying) return;
-    const intervalTime = playbackSpeed === 1 ? 2600 : 1300;
-    const interval = setInterval(() => {
-      setActiveStepIndex((prev) => (prev + 1) % 4);
-      setCustomSelectedNodeIndex(null);
-    }, intervalTime);
-
-    return () => clearInterval(interval);
-  }, [isPlaying, playbackSpeed]);
-
-  const renderIcon = (iconName: string, className: string = 'w-4 h-4') => {
-    switch (iconName) {
-      case 'mail':
-        return <Mail className={className} />;
-      case 'cpu':
-        return <Cpu className={className} />;
-      case 'database':
-        return <Database className={className} />;
-      case 'smartphone':
-        return <Smartphone className={className} />;
-      case 'boxes':
-        return <Boxes className={className} />;
-      case 'fileText':
-        return <FileText className={className} />;
-      case 'barChart':
-        return <BarChart3 className={className} />;
-      default:
-        return <Layers className={className} />;
-    }
-  };
+  const [activeScenarioIdx, setActiveScenarioIdx] = useState(0);
+  const activeScenario = CALL_SCENARIOS[activeScenarioIdx];
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-[#09090B] border-b border-zinc-800 overflow-hidden min-h-[920px]">
-      {/* Decoupled Memoized Background */}
-      <HeroBackground />
+    <section id="hero" className="relative pt-28 pb-16 md:pt-36 md:pb-24 bg-[#F8FAFC] border-b border-slate-200/80 overflow-hidden">
+      
+      {/* Background Subtle Particle Canvas */}
+      <HeroNeuralCanvas />
+      
+      {/* Ambient Warm Gradient Orbs */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-tr from-orange-300/35 via-amber-200/30 to-sky-200/30 blur-[90px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-1/3 -left-20 w-[420px] h-[420px] bg-gradient-to-br from-orange-400/20 to-rose-300/15 blur-[80px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-1/4 -right-20 w-[420px] h-[420px] bg-gradient-to-bl from-sky-400/20 to-indigo-300/15 blur-[80px] rounded-full pointer-events-none z-0" />
 
+      {/* Subtle Matrix Dot Pattern */}
+      <div className="absolute inset-0 bg-dot-pattern opacity-30 pointer-events-none z-0" />
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ======================================================== */}
-        {/* HERO TITLE & CALL TO ACTIONS */}
+        {/* HERO TITLE & CONFIDENT VALUE PROPOSITION */}
         {/* ======================================================== */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center max-w-3xl mx-auto space-y-4"
         >
-          {/* Status Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-sm shadow-sm">
+          {/* Status Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-xs backdrop-blur-md">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F26522] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F26522]"></span>
             </span>
-            <span className="text-xs font-mono text-zinc-300">
-              Live Interactive Automation Engine
+            <span className="text-xs font-semibold text-slate-700 tracking-tight flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-[#F26522]" />
+              Autonomous Voice Calling Infrastructure
             </span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white font-display leading-[1.12]">
-            Automate the repetitive work in{' '}
-            <span className="text-[#F26522]">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-950 leading-[1.12]">
+            Human-sounding AI Voice Agents for{' '}
+            <span className="bg-gradient-to-r from-[#F26522] via-[#FF7A1A] to-[#EA580C] bg-clip-text text-transparent">
               your business.
             </span>
           </h1>
 
-          {/* Plain English Subtitle */}
-          <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto font-normal leading-relaxed">
-            We connect your spreadsheets, emails, invoices, and ERP databases so your team never wastes hours on manual data entry again.
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+            Deploy 24/7 autonomous phone agents running at &lt;350ms latency. Handle inbound customer inquiries, appointment bookings, and order tracking with zero hold times.
           </p>
 
           {/* Action Buttons */}
@@ -538,372 +440,254 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAudit, onExploreSolutions }) =
             <button
               id="hero-get-audit-btn"
               onClick={onOpenAudit}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm transition-colors cursor-pointer shadow-md"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm transition-all duration-200 cursor-pointer shadow-sm hover:shadow active:scale-[0.98]"
             >
-              <span>Get a Free Workflow Audit</span>
+              <span>Deploy Your Voice Agent</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
             <button
               id="hero-explore-solutions-btn"
               onClick={onExploreSolutions}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 font-medium text-sm transition-colors cursor-pointer backdrop-blur-sm"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 font-medium text-sm transition-all duration-200 cursor-pointer shadow-xs hover:border-slate-300"
             >
-              <span>Explore Solutions</span>
-              <ChevronRight className="w-4 h-4 text-zinc-400" />
+              <span>Try Live Voice Demo</span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
             </button>
           </div>
 
           {/* 3 Quick Guarantees */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-7 text-xs font-mono text-zinc-400">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-7 text-xs font-mono text-slate-500">
             <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Free Architecture Blueprint</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span>&lt;350ms Conversational Latency</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>No new software to learn</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+              <span>Seamless Calendar & CRM Sync</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-[#F26522]" />
-              <span>Starts at $250 / workflow</span>
+              <span>100% Usage-Based • Pay As You Go</span>
             </div>
           </div>
         </motion.div>
 
         {/* ======================================================== */}
-        {/* INTERACTIVE WORKFLOW PIPELINE SIMULATOR (ANIMATION) */}
+        {/* SIMPLE, INTUITIVE CALL OVERVIEW (REPLACES COMPLEX DASHBOARD) */}
         {/* ======================================================== */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.12, ease: 'easeOut' }}
-          className="mt-10 max-w-5xl mx-auto"
+          transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
+          className="mt-10 max-w-4xl mx-auto"
         >
-          <div className="rounded-2xl bg-[#111114]/95 border border-zinc-800 shadow-2xl backdrop-blur-md overflow-hidden">
+          {/* Main Card Container */}
+          <div className="rounded-2xl sm:rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,1)] overflow-hidden">
             
-            {/* Top Toolbar: Scenario Switcher + Playback Controls */}
-            <div className="px-4 py-3 bg-[#16161A] border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3 min-h-[52px]">
-              
-              {/* Preset Selector Buttons */}
-              <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 max-w-full">
-                {WORKFLOW_PRESETS.map((preset, idx) => {
-                  const isSelected = idx === activePresetIndex;
-                  return (
-                    <button
-                      key={preset.id}
-                      onClick={() => {
-                        setActivePresetIndex(idx);
-                        setActiveStepIndex(0);
-                        setCustomSelectedNodeIndex(null);
+            {/* Header: Call Status Bar + Scenario Switcher */}
+            <div className="p-3.5 sm:p-5 bg-gradient-to-r from-slate-900 to-slate-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-medium text-emerald-300">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Call Active • Line 1</span>
+                </div>
+                <span className="text-xs font-mono text-slate-400 hidden sm:inline">
+                  +1 (800) 492-9102
+                </span>
+              </div>
+
+              {/* Quick Scenario Selector Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mr-1 hidden md:inline">
+                  Example:
+                </span>
+                {CALL_SCENARIOS.map((sc, idx) => (
+                  <button
+                    key={sc.id}
+                    onClick={() => setActiveScenarioIdx(idx)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer ${
+                      activeScenarioIdx === idx
+                        ? 'bg-[#F26522] text-white shadow-xs'
+                        : 'bg-slate-800/90 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/60'
+                    }`}
+                  >
+                    {sc.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Simulated Live Phone Audio Visualizer */}
+            <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/70 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 text-slate-700 font-medium">
+                  <Volume2 className="w-4 h-4 text-[#F26522]" />
+                  <span>Audio Stream (HD Opus)</span>
+                </div>
+                {/* Animated Waveform Bars */}
+                <div className="flex items-center gap-0.5 h-4">
+                  {[40, 75, 55, 90, 60, 85, 45, 95, 70, 50, 80, 65].map((height, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{
+                        height: [`${Math.max(20, height * 0.3)}%`, `${height}%`, `${Math.max(20, height * 0.4)}%`],
                       }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-                        isSelected 
-                          ? 'bg-[#F26522] text-white font-semibold shadow-sm'
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-                      }`}
-                    >
-                      <Activity className={`w-3 h-3 ${isSelected ? 'text-white' : 'text-zinc-500'}`} />
-                      <span>{preset.name}</span>
-                    </button>
-                  );
-                })}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 0.8 + (i % 4) * 0.2,
+                        ease: 'easeInOut',
+                        delay: i * 0.05
+                      }}
+                      className="w-1 bg-[#F26522] rounded-full"
+                    />
+                  ))}
+                </div>
               </div>
 
-              {/* Controls (Play/Pause, Speed, Reset) */}
-              <div className="flex items-center gap-2 shrink-0">
-                {/* Speed toggle */}
-                <button
-                  onClick={() => setPlaybackSpeed(playbackSpeed === 1 ? 2 : 1)}
-                  className="px-2 py-1 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 text-xs font-mono cursor-pointer transition-colors border border-zinc-700/50"
-                  title="Toggle animation speed"
-                >
-                  {playbackSpeed}x Speed
-                </button>
-
-                {/* Reset */}
-                <button
-                  onClick={() => {
-                    setActiveStepIndex(0);
-                    setCustomSelectedNodeIndex(null);
-                  }}
-                  className="p-1.5 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 cursor-pointer transition-colors border border-zinc-700/50"
-                  title="Reset simulation to step 1"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                </button>
-
-                {/* Play / Pause */}
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="px-2.5 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-1.5 cursor-pointer transition-colors border border-zinc-700"
-                >
-                  {isPlaying ? (
-                    <>
-                      <Pause className="w-3 h-3 text-orange-400" />
-                      <span className="text-[11px] font-mono text-zinc-300">Live Flow</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-3 h-3 text-emerald-400" />
-                      <span className="text-[11px] font-mono text-zinc-300">Resume</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-            </div>
-
-            {/* Scenario Header Info with strict min-height */}
-            <div className="p-4 sm:p-5 border-b border-zinc-800/80 bg-zinc-900/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-h-[78px]">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono font-medium text-[#F26522] uppercase tracking-wider">
-                    {currentPreset.tag}
-                  </span>
-                  <span className="text-zinc-600">•</span>
-                  <span className="text-xs text-zinc-400">
-                    Live Data Flow Pipeline
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-xl line-clamp-2">
-                  {currentPreset.description}
-                </p>
-              </div>
-
-              {/* Time and Dollar Savings Badges */}
-              <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-                <div className="bg-emerald-950/40 border border-emerald-800/40 px-3 py-1.5 rounded-lg text-xs text-emerald-300 font-medium inline-flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Saves {currentPreset.timeSaved}</span>
-                </div>
-                <div className="bg-orange-950/30 border border-orange-800/30 px-3 py-1.5 rounded-lg text-xs text-orange-300 font-mono inline-flex items-center gap-1">
-                  <span>{currentPreset.estAnnualSavings}</span>
-                </div>
+              <div className="flex items-center gap-3 font-mono text-slate-500 text-[11px]">
+                <span className="flex items-center gap-1 text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
+                  <Zap className="w-3 h-3 text-emerald-600" />
+                  Response: {activeScenario.latency}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-slate-400" />
+                  {activeScenario.callDuration}
+                </span>
               </div>
             </div>
 
-            {/* ======================================================== */}
-            {/* 4 CONNECTED ANIMATED PIPELINE NODES */}
-            {/* ======================================================== */}
-            <div className="p-4 sm:p-6 space-y-6">
+            {/* Conversation Flow Area */}
+            <div className="p-4 sm:p-6 space-y-3.5 bg-gradient-to-b from-white to-slate-50/50">
               
-              {/* Nodes Row with Animated Connection Path */}
-              <div className="relative">
-                
-                {/* SVG Animated Connector Line */}
-                <div className="hidden md:block absolute top-1/2 left-8 right-8 -translate-y-1/2 h-0.5 bg-zinc-800 z-0 pointer-events-none">
-                  {/* Glowing Pulse moving across */}
-                  <motion.div
-                    animate={{
-                      left: `${(activeStepIndex / 3) * 100}%`,
-                    }}
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-2 bg-gradient-to-r from-transparent via-[#F26522] to-transparent blur-[2px]"
-                  />
-                  {/* Active fill line */}
-                  <motion.div
-                    animate={{
-                      width: `${(activeStepIndex / 3) * 100}%`,
-                    }}
-                    transition={{ duration: 0.35, ease: 'easeInOut' }}
-                    className="h-full bg-gradient-to-r from-zinc-700 via-[#F26522] to-[#F26522]"
-                  />
+              {/* 1. Caller Message */}
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 font-mono text-xs shrink-0 mt-0.5">
+                  <PhoneCall className="w-3.5 h-3.5 text-slate-600" />
                 </div>
-
-                {/* 4 Step Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 relative z-10">
-                  {currentPreset.nodes.map((node, idx) => {
-                    const isCurrent = idx === activeStepIndex;
-                    const isCompleted = idx < activeStepIndex;
-                    const isSelected = selectedNode?.id === node.id;
-
-                    return (
-                      <div
-                        key={node.id}
-                        onClick={() => {
-                          setActiveStepIndex(idx);
-                          setCustomSelectedNodeIndex(idx);
-                          setIsPlaying(false);
-                        }}
-                        className={`p-3.5 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between min-h-[148px] ${
-                          isCurrent
-                            ? 'bg-zinc-800/90 border-[#F26522] shadow-lg ring-1 ring-[#F26522]/50 scale-[1.02]'
-                            : isCompleted
-                            ? 'bg-zinc-900/80 border-zinc-700/80 text-zinc-300'
-                            : 'bg-zinc-900/40 border-zinc-800/60 text-zinc-500 opacity-75 hover:opacity-100'
-                        }`}
-                      >
-                        {/* Top Node Badge */}
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-mono font-bold text-zinc-500">
-                              STEP {node.stepNumber}
-                            </span>
-                            
-                            {isCurrent ? (
-                              <span className="flex items-center gap-1 text-[10px] font-mono font-semibold text-[#F26522] bg-[#F26522]/10 px-1.5 py-0.5 rounded border border-[#F26522]/30">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#F26522] animate-pulse" />
-                                ACTIVE
-                              </span>
-                            ) : isCompleted ? (
-                              <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-0.5">
-                                <CheckCircle2 className="w-3 h-3" />
-                                DONE
-                              </span>
-                            ) : (
-                              <span className="text-[10px] font-mono text-zinc-600">
-                                QUEUED
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Node Icon & Name */}
-                          <div className="flex items-center gap-2 mb-1.5">
-                            <div className={`p-1.5 rounded-lg shrink-0 ${
-                              isCurrent 
-                                ? 'bg-[#F26522] text-white shadow-sm' 
-                                : isCompleted 
-                                ? 'bg-zinc-800 text-zinc-300' 
-                                : 'bg-zinc-900 text-zinc-500'
-                            }`}>
-                              {renderIcon(node.icon, 'w-3.5 h-3.5')}
-                            </div>
-                            <span className={`text-xs font-bold truncate ${isCurrent ? 'text-white' : 'text-zinc-300'}`}>
-                              {node.title}
-                            </span>
-                          </div>
-
-                          <p className="text-[11px] text-zinc-400 leading-snug line-clamp-2 h-[28px]">
-                            {node.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Latency / Execution Time */}
-                        <div className="mt-3 pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[10px] font-mono text-zinc-500">
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-2.5 h-2.5" />
-                            {node.latency}
-                          </span>
-                          <span className={isSelected ? 'text-[#F26522] font-semibold' : 'text-zinc-500'}>
-                            Inspect &rarr;
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div className="flex-1 bg-white p-3.5 rounded-2xl rounded-tl-sm border border-slate-200/90 shadow-2xs max-w-xl">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                      Caller (Incoming Speech)
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">00:04</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-900 font-medium leading-relaxed">
+                    {activeScenario.callerQuery}
+                  </p>
                 </div>
               </div>
 
-              {/* ======================================================== */}
-              {/* LOWER SECTION: PAYLOAD INSPECTOR + LIVE TERMINAL LOGS */}
-              {/* ======================================================== */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 pt-2">
-                
-                {/* Left: Interactive Node Payload Inspector */}
-                <div className="lg:col-span-7 p-4 rounded-xl bg-zinc-950/80 border border-zinc-800 flex flex-col justify-between min-h-[265px]">
-                  <div>
-                    <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-zinc-800/80">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#F26522]" />
-                        <h4 className="text-xs font-mono uppercase font-bold text-zinc-300 truncate">
-                          Payload: {selectedNode?.title}
-                        </h4>
-                      </div>
-                      <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/50 border border-emerald-800/40 px-2 py-0.5 rounded shrink-0">
-                        Accuracy: {selectedNode?.payload.accuracy}
+              {/* 2. AI Agent Response */}
+              <div className="flex items-start gap-3 justify-end">
+                <div className="flex-1 bg-orange-50/80 p-3.5 rounded-2xl rounded-tr-sm border border-orange-200/80 shadow-2xs max-w-xl">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#F26522]" />
+                      <span className="text-[11px] font-mono font-bold text-[#F26522] uppercase tracking-wider">
+                        UpFrama Voice Agent
                       </span>
                     </div>
-
-                    <p className="text-xs text-zinc-400 mb-2.5 line-clamp-1">
-                      {selectedNode?.details}
-                    </p>
-
-                    {/* Key-Value Payload preview */}
-                    <div className="rounded-lg bg-[#0D0D10] border border-zinc-800/80 p-3 space-y-1 font-mono text-[11px] min-h-[145px]">
-                      <div className="flex justify-between text-zinc-500 border-b border-zinc-800/50 pb-1 mb-1 text-[10px]">
-                        <span>Source: <strong className="text-zinc-300">{selectedNode?.payload.sourceApp}</strong></span>
-                        <span>Target: <strong className="text-zinc-300">{selectedNode?.payload.targetApp}</strong></span>
-                      </div>
-
-                      {selectedNode?.payload.sample && Object.entries(selectedNode.payload.sample).slice(0, 5).map(([k, v]) => (
-                        <div key={k} className="flex items-center justify-between text-xs py-0.5">
-                          <span className="text-zinc-400 font-normal">{k}:</span>
-                          <span className="text-amber-300/90 font-medium truncate max-w-[200px]">{String(v)}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-100/80 px-1.5 py-0.2 rounded font-semibold">
+                      ⚡ &lt;300ms
+                    </span>
                   </div>
-
-                  <div className="mt-2.5 pt-2 flex items-center justify-between text-[11px] font-mono text-zinc-500 border-t border-zinc-800/60">
-                    <span>Fields Processed: {selectedNode?.payload.fieldsProcessed}</span>
-                    <span>Status: Verified & Synced</span>
-                  </div>
+                  <p className="text-xs sm:text-sm text-slate-900 leading-relaxed font-normal">
+                    {activeScenario.aiResponse}
+                  </p>
                 </div>
+                <div className="w-7 h-7 rounded-full bg-[#F26522] flex items-center justify-center text-white shrink-0 mt-0.5 shadow-2xs">
+                  <Mic className="w-3.5 h-3.5" />
+                </div>
+              </div>
 
-                {/* Right: Live Telemetry Terminal */}
-                <div className="lg:col-span-5 p-4 rounded-xl bg-zinc-950/90 border border-zinc-800 flex flex-col justify-between font-mono text-xs min-h-[265px]">
-                  <div>
-                    <div className="flex items-center justify-between mb-2 pb-2 border-b border-zinc-800">
-                      <div className="flex items-center gap-1.5">
-                        <Terminal className="w-3.5 h-3.5 text-[#F26522]" />
-                        <span className="text-[11px] text-zinc-300 font-bold uppercase">
-                          Execution Stream
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-[10px] text-zinc-500">240 FPS</span>
-                      </div>
-                    </div>
+              {/* 3. Caller Follow-up */}
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 font-mono text-xs shrink-0 mt-0.5">
+                  <PhoneCall className="w-3.5 h-3.5 text-slate-600" />
+                </div>
+                <div className="flex-1 bg-white p-3 rounded-2xl rounded-tl-sm border border-slate-200/90 shadow-2xs max-w-xl">
+                  <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">
+                    {activeScenario.callerReply}
+                  </p>
+                </div>
+              </div>
 
+              {/* Live Automated Actions Executed */}
+              <div className="pt-2 border-t border-slate-200/70">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-2 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-[#F26522]" />
+                  <span>Real-Time Backend Actions Executed During Call:</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {activeScenario.systemActions.map((action, i) => (
                     <div 
-                      ref={logsContainerRef}
-                      className="space-y-1.5 text-[11px] text-zinc-400 h-[155px] overflow-y-auto pr-1"
+                      key={i} 
+                      className="bg-emerald-50/70 border border-emerald-200/70 rounded-xl px-3 py-2 text-[11px] text-emerald-900 font-medium flex items-center gap-2"
                     >
-                      {terminalLogs.map((log, lIdx) => (
-                        <div key={lIdx} className="leading-relaxed flex items-start gap-1.5">
-                          <span className="text-[#F26522] shrink-0">&gt;</span>
-                          <span className={lIdx === terminalLogs.length - 1 ? 'text-zinc-200 font-semibold' : 'text-zinc-400'}>
-                            {log}
-                          </span>
-                        </div>
-                      ))}
+                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span className="truncate">{action}</span>
                     </div>
-                  </div>
-
-                  <div className="mt-2.5 pt-2 border-t border-zinc-800 flex items-center justify-between text-[10px] text-zinc-500">
-                    <span>Engine Uptime: 99.98%</span>
-                    <button
-                      onClick={() => setLogFilter(logFilter === 'all' ? 'latest' : 'all')}
-                      className="text-zinc-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
-                    >
-                      <RefreshCw className="w-2.5 h-2.5" />
-                      <span>{logFilter === 'all' ? 'Filter Stream' : 'Show All'}</span>
-                    </button>
-                  </div>
+                  ))}
                 </div>
-
               </div>
 
-              {/* Bottom Quick Callout */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 border-t border-zinc-800/80">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#F26522]" />
-                  <span>Custom configured for your company with zero downtime.</span>
-                </div>
-                <button
-                  onClick={onOpenAudit}
-                  className="text-[#F26522] hover:text-orange-300 font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors"
-                >
-                  <span>Build this pipeline for your business</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
+            </div>
 
+            {/* Bottom Strip: Key Capabilities */}
+            <div className="px-5 py-3 bg-slate-100/70 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#F26522]" />
+                Zero hold time • Answers on ring 1
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                Natural barge-in & interruption handling
+              </span>
+              <button
+                onClick={onOpenAudit}
+                className="text-[#F26522] font-semibold hover:underline inline-flex items-center gap-1 cursor-pointer"
+              >
+                <span>Get a Voice Flow for Your Business</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
 
           </div>
+
+          {/* 3 High-Impact Pillar Cards Underneath Overview */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mt-4">
+            <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+              <div className="w-8 h-8 rounded-xl bg-orange-100 text-[#F26522] flex items-center justify-center mb-2.5">
+                <PhoneCall className="w-4 h-4" />
+              </div>
+              <h4 className="text-sm font-bold text-slate-950 font-display">1. Answers On Ring 1</h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                24/7/365 instant reception. No busy signals, no voicemail tags, and zero lost weekend leads.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+              <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-2.5">
+                <Mic className="w-4 h-4" />
+              </div>
+              <h4 className="text-sm font-bold text-slate-950 font-display">2. Human-Like Cadence</h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Ultra-low &lt;350ms latency with realistic pauses and seamless interruption handling.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+              <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2.5">
+                <Calendar className="w-4 h-4" />
+              </div>
+              <h4 className="text-sm font-bold text-slate-950 font-display">3. Live System Actions</h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Directly books calendar appointments, checks CRM records, and dispatches SMS confirmations.
+              </p>
+            </div>
+          </div>
+
         </motion.div>
 
       </div>

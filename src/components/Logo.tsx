@@ -20,12 +20,12 @@ export const Logo: React.FC<LogoProps> = ({
     const iconSizes = { sm: 24, md: 32, lg: 40, xl: 48, '2xl': 64 };
     return (
       <div className={`inline-flex items-center ${className}`}>
-        <UpframaIcon size={iconSizes[size] || 32} variant="glow" />
+        <UpframaIcon size={iconSizes[size] || 32} />
       </div>
     );
   }
 
-  const logoVariant = variant === 'light' ? 'light' : 'dark';
+  const logoVariant = variant === 'dark' ? 'dark' : 'light';
 
   return (
     <UpframaLogo

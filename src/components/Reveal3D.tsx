@@ -87,6 +87,7 @@ export const Reveal3D: React.FC<Reveal3DProps> = ({
           ease: [0.22, 1, 0.36, 1], // Custom smooth 3D cubic bezier curve
         }}
         style={{ transformStyle: 'preserve-3d' }}
+        className="w-full h-full"
       >
         {children}
       </motion.div>

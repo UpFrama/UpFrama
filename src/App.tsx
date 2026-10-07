@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { TrustIntegrations } from './components/TrustIntegrations';
+import { VoiceAssistantSection } from './components/VoiceAssistantSection';
 import { ProblemSection } from './components/ProblemSection';
 import { Solutions } from './components/Solutions';
-import { BeforeAfter } from './components/BeforeAfter';
 import { HowItWorks } from './components/HowItWorks';
-import { IntegrationsSection } from './components/IntegrationsSection';
 import { PricingStarter } from './components/PricingStarter';
 import { FaqSection } from './components/FaqSection';
 import { FinalCta } from './components/FinalCta';
@@ -14,11 +12,24 @@ import { Footer } from './components/Footer';
 import { AuditBookingModal } from './components/AuditBookingModal';
 import { BrandAssetsModal } from './components/BrandAssetsModal';
 import { ScrollToTop } from './components/ScrollToTop';
+import { SmoothScrollProvider, useSmoothScroll } from './context/SmoothScrollContext';
 
-export default function App() {
+function AppContent() {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
   const [auditPreset, setAuditPreset] = useState<string>('General Operational Workflows');
+  const { scrollTo, stop, start } = useSmoothScroll();
+
+  // Control background scroll when modals are open
+  useEffect(() => {
+    if (isAuditModalOpen || isBrandModalOpen) {
+      stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      start();
+      document.body.style.overflow = '';
+    }
+  }, [isAuditModalOpen, isBrandModalOpen, stop, start]);
 
   const handleOpenAudit = (preset?: string) => {
     if (preset) {
@@ -28,20 +39,18 @@ export default function App() {
   };
 
   const handleExploreSolutions = () => {
-    const el = document.getElementById('solutions');
-    if (el) {
-      const navOffset = 80;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
+    scrollTo('#voice-ai', { offset: -80, duration: 1.1 });
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0402] text-[#F8F5F2] selection:bg-[#F26522] selection:text-white flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-[#F26522] selection:text-white flex flex-col relative antialiased">
+      {/* Subtle Ambient Background Gradients */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-orange-100/40 via-amber-50/30 to-transparent rounded-full blur-3xl opacity-70" />
+        <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-blue-50/50 via-indigo-50/30 to-transparent rounded-full blur-3xl opacity-60" />
+        <div className="absolute top-2/3 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-orange-50/50 via-rose-50/20 to-transparent rounded-full blur-3xl opacity-50" />
+      </div>
+
       {/* 1. Header Navigation */}
       <Navbar
         onOpenAudit={() => handleOpenAudit()}
@@ -49,37 +58,31 @@ export default function App() {
       />
 
       <main className="flex-grow">
-        {/* 2. Hero with Plain English Value Prop & Interactive Live Demo */}
+        {/* 2. Hero with Plain English Value Prop & Simple Overview */}
         <Hero
           onOpenAudit={() => handleOpenAudit()}
           onExploreSolutions={handleExploreSolutions}
         />
 
-        {/* 3. Non-Invasive Tool Compatibility Ribbon */}
-        <TrustIntegrations onOpenAudit={() => handleOpenAudit()} />
+        {/* 2.5. Autonomous AI Voice Assistant Services & Live Interactive Simulation */}
+        <VoiceAssistantSection onOpenAudit={(preset) => handleOpenAudit(preset || 'AI Voice Assistant Implementation')} />
 
-        {/* 4. Common Daily Time Wasters (4 focused problem areas) */}
+        {/* 3. Common Daily Time Wasters (4 focused problem areas) */}
         <ProblemSection onOpenAudit={(problem) => handleOpenAudit(problem || 'Operational Bottleneck Review')} />
 
-        {/* 5. What We Automate (6 practical, high-impact workflows) */}
+        {/* 4. Upcoming Services Roadmap */}
         <Solutions onOpenAudit={(preset) => handleOpenAudit(preset)} />
 
-        {/* 6. Before vs After Comparison */}
-        <BeforeAfter onOpenAudit={() => handleOpenAudit('Before vs After Roadmap')} />
-
-        {/* 7. How It Works (4 simple steps) */}
+        {/* 5. How It Works (4 simple steps) */}
         <HowItWorks onOpenAudit={() => handleOpenAudit('Discovery Session')} />
 
-        {/* 8. Works with Your Existing Tools */}
-        <IntegrationsSection onOpenAudit={() => handleOpenAudit('Custom Stack Integration')} />
-
-        {/* 9. Transparent Starter Pricing ($250 per workflow) */}
+        {/* 6. Transparent Starter Pricing */}
         <PricingStarter onOpenAudit={(tier) => handleOpenAudit(tier)} />
 
-        {/* 10. Frequently Asked Questions */}
+        {/* 7. Frequently Asked Questions */}
         <FaqSection onOpenAudit={() => handleOpenAudit('FAQ Inquiry')} />
 
-        {/* 11. Final Friendly CTA */}
+        {/* 8. Final Friendly CTA */}
         <FinalCta onOpenAudit={() => handleOpenAudit()} />
       </main>
 
@@ -105,5 +108,13 @@ export default function App() {
       {/* Floating Scroll to Top */}
       <ScrollToTop />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <SmoothScrollProvider>
+      <AppContent />
+    </SmoothScrollProvider>
   );
 }

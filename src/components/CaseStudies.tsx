@@ -249,7 +249,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ onOpenAudit }) => {
             </div>
             <button
               onClick={onOpenAudit}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#F26522] via-[#FF7A1A] to-[#EA580C] text-white font-bold text-sm shadow-lg shadow-orange-600/30 hover:scale-[1.02] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer"
             >
               <span>Book Your Automation Audit</span>
               <ArrowRight className="w-4 h-4" />

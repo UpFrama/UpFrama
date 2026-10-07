@@ -166,7 +166,7 @@ export const FaqAndDiagnostic: React.FC<FaqAndDiagnosticProps> = ({ onOpenAudit 
                 <button
                   id="run-diagnostic-btn"
                   onClick={handleRunDiagnostic}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#F26522] via-[#FF7A1A] to-[#EA580C] hover:from-orange-500 hover:to-orange-400 text-white font-bold text-sm shadow-xl shadow-orange-600/30 transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Generate Instant Automation Diagnostic</span>
@@ -186,7 +186,7 @@ export const FaqAndDiagnostic: React.FC<FaqAndDiagnosticProps> = ({ onOpenAudit 
                 <span className="text-xs font-mono text-orange-400 font-bold uppercase tracking-wider">
                   Diagnostic Result: Prime Automation Candidate
                 </span>
-                <h4 className="text-3xl font-bold font-display text-white mt-1">
+                <h4 className="text-3xl font-bold text-white mt-1">
                   96.8% Automation Feasibility Score
                 </h4>
                 <p className="text-sm text-stone-300 mt-2 max-w-lg mx-auto">
@@ -212,7 +212,7 @@ export const FaqAndDiagnostic: React.FC<FaqAndDiagnosticProps> = ({ onOpenAudit 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                 <button
                   onClick={() => onOpenAudit(selectedBottleneck)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#F26522] via-[#FF7A1A] to-[#EA580C] text-white font-bold text-sm shadow-lg shadow-orange-600/30 hover:scale-[1.02] transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <span>Book Free Process Blueprint for This Flow</span>
                   <ArrowRight className="w-4 h-4" />

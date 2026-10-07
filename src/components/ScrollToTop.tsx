@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
+import { useSmoothScroll } from '../context/SmoothScrollContext';
 
 export const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     let ticking = false;
@@ -28,10 +30,7 @@ export const ScrollToTop: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    scrollTo(0, { duration: 1.1 });
   };
 
   // SVG circle parameters

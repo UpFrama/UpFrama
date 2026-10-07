@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ChevronDown, 
-  HelpCircle 
+  HelpCircle,
+  ArrowRight
 } from 'lucide-react';
 import { Reveal3D } from './Reveal3D';
 
@@ -15,70 +16,79 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenAudit }) => {
 
   const faqs = [
     {
-      q: 'Do we need to replace our ERP?',
-      a: 'No. We primarily connect and automate around your existing systems. Whether you run SAP, NetSuite, Dynamics 365, Odoo, or a custom on-premise database, we build non-invasive integrations that read and write data without requiring system replacements.'
+      q: 'Do we need to change our existing phone numbers or telecom provider?',
+      a: 'No. You keep your existing numbers and carrier. You can simply set up conditional call forwarding (for when lines are busy or after hours) to your UpFrama agent SIP endpoint, or we can provision a new dedicated local or toll-free number.'
     },
     {
-      q: 'Can you work with our existing software?',
-      a: 'If it provides an API, database access, webhook, or even structured email / spreadsheet outputs, usually yes. We have connected legacy desktop ERPs, custom SQL databases, cloud platforms, and third-party logistics portals.'
+      q: 'How natural does the AI voice sound?',
+      a: 'Our voice agents use advanced neural voice models running at sub-350ms latency. They feature human-like cadences, natural inflection, and real-time interruption (barge-in) support—meaning if a caller interrupts, the agent pauses immediately just like a real person.'
     },
     {
-      q: 'Do you build AI agents?',
-      a: 'Yes, where an agent provides genuine business value (such as messy document OCR, intelligent customer email classification, or production anomaly detection). Not every workflow needs an AI agent—we always prioritize the fastest, most reliable deterministic solution first.'
+      q: 'Can the voice agent check our live calendar and CRM databases?',
+      a: 'Yes. The agent connects directly to Google Calendar, Outlook 365, HubSpot, Salesforce, or your custom database API. It can look up caller history by phone number, verify available booking slots, confirm appointments, or check shipment status in real time.'
     },
     {
-      q: 'How long does an automation take to build?',
-      a: 'Timelines vary based on technical complexity, system accessibility, and data validation requirements. During your initial blueprint discovery, we provide a transparent, step-by-step milestone plan with guaranteed zero disruption to your daily operations.'
+      q: 'What happens if a caller asks something the agent cannot answer?',
+      a: 'We configure custom fallback protocols. The agent can warm-transfer the live call to a staff member, schedule an immediate callback, or record a detailed message and deliver the audio transcript to your team via SMS, email, or Slack.'
     },
     {
-      q: 'Do you provide maintenance?',
-      a: 'Yes. We provide continuous uptime monitoring, error logging, and pipeline maintenance to ensure your automations remain fast and resilient as third-party APIs update and your operational volume scales.'
+      q: 'Do we get recordings and transcripts of every call?',
+      a: 'Yes. Every call includes a full audio recording, accurate word-by-word transcript, key entity breakdown, and automated summary synced directly into your CRM or internal software with zero delay.'
+    },
+    {
+      q: 'How does pricing and usage billing work?',
+      a: 'We do not charge rigid fixed fees or lock you into multi-year phone contracts. Our pricing is 100% usage-based: you only pay for the actual connected call minutes your agent handles. If call volume drops during quiet weeks, your costs drop proportionally. Full speech synthesis, LLM reasoning, telephony routing, and calendar/CRM syncing are included in your metered rate.'
     }
   ];
 
   return (
-    <section id="faq" className="py-20 bg-[#09090B] relative border-b border-zinc-800">
+    <section id="faq" className="py-20 bg-[#F8FAFC]/90 relative border-b border-slate-200/80 overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 bg-dot-pattern opacity-30 pointer-events-none" />
+      <div className="absolute top-1/3 -right-36 w-80 h-80 bg-orange-100/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -left-36 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with 3D Pop */}
-        <Reveal3D direction="down" depth={35} rotation={8}>
+        {/* Section Header */}
+        <Reveal3D direction="down" depth={24} rotation={6}>
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono mb-3 shadow-inner">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-50/80 backdrop-blur-md border border-orange-200/80 text-orange-700 text-xs font-semibold mb-3 shadow-xs">
               <HelpCircle className="w-3.5 h-3.5 text-[#F26522]" />
-              <span>FAQ // CLARIFICATIONS</span>
+              <span>Frequently Asked Questions</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display text-white tracking-tight leading-tight">
-              Frequently Asked Questions
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight leading-tight">
+              Everything you need to know.
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base mt-2">
+            <p className="text-slate-600 text-sm sm:text-base mt-2">
               Clear answers about how we build, integrate, and maintain your operational automations.
             </p>
           </div>
         </Reveal3D>
 
-        {/* FAQ Accordion List with 3D Entrance */}
+        {/* FAQ Accordion List */}
         <div className="space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
             return (
-              <Reveal3D key={idx} delay={idx * 0.06} direction="up" depth={30} rotation={6}>
+              <Reveal3D key={idx} delay={idx * 0.05} direction="up" depth={20} rotation={4}>
                 <div
-                  className={`rounded-2xl border transition-all duration-200 overflow-hidden shadow-lg ${
+                  className={`rounded-2xl border transition-all duration-200 overflow-hidden backdrop-blur-xl ${
                     isOpen 
-                      ? 'bg-[#141418] border-zinc-700 shadow-xl' 
-                      : 'bg-[#111114] border-zinc-800/80 hover:border-zinc-700'
+                      ? 'bg-white/90 border-orange-300/60 shadow-[0_12px_30px_rgba(242,101,34,0.08),inset_0_1px_1px_rgba(255,255,255,1)]' 
+                      : 'bg-white/70 border-white/80 shadow-[0_4px_20px_rgba(15,23,42,0.03),inset_0_1px_1px_rgba(255,255,255,0.9)] hover:border-orange-200 hover:bg-white/80'
                   }`}
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
                     className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
                   >
-                    <span className="text-base sm:text-lg font-semibold text-white">
+                    <span className="text-base sm:text-lg font-bold text-slate-900">
                       {faq.q}
                     </span>
-                    <div className={`p-1.5 rounded-lg border transition-transform duration-200 shrink-0 ${
-                      isOpen ? 'bg-[#F26522]/20 border-[#F26522]/40 text-[#F26522] rotate-180' : 'bg-zinc-900 border-zinc-800 text-zinc-400'
+                    <div className={`p-2 rounded-full border transition-transform duration-200 shrink-0 ${
+                      isOpen ? 'bg-orange-50 border-orange-200 text-[#F26522] rotate-180' : 'bg-white/80 border-white/90 text-slate-500 shadow-xs'
                     }`}>
                       <ChevronDown className="w-4 h-4" />
                     </div>
@@ -92,7 +102,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenAudit }) => {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
                       >
-                        <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-zinc-300 leading-relaxed border-t border-zinc-800/60 mt-1">
+                        <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-slate-600 leading-relaxed border-t border-slate-200/60 mt-1">
                           {faq.a}
                         </div>
                       </motion.div>
@@ -104,15 +114,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenAudit }) => {
           })}
         </div>
 
-        {/* FAQ Bottom Support Link */}
-        <Reveal3D delay={0.3} direction="up" depth={20}>
-          <div className="mt-10 text-center text-xs font-mono text-zinc-400">
-            <span>Have a specific architectural question? </span>
+        {/* Bottom Help */}
+        <Reveal3D delay={0.25} direction="up" depth={15}>
+          <div className="mt-10 text-center p-6 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/90 shadow-[0_8px_30px_rgba(15,23,42,0.04),inset_0_1px_1px_rgba(255,255,255,1)]">
+            <p className="text-sm font-semibold text-slate-800">
+              Have a question specific to your software stack or security compliance?
+            </p>
             <button
               onClick={onOpenAudit}
-              className="text-[#F26522] hover:text-orange-300 font-semibold underline underline-offset-4 cursor-pointer ml-1"
+              className="mt-2 text-xs font-bold text-[#F26522] hover:text-[#DE5516] inline-flex items-center gap-1.5 cursor-pointer"
             >
-              Ask an Automation Engineer &rarr;
+              <span>Speak directly with an automation architect</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </Reveal3D>

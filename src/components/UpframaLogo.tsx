@@ -1,5 +1,4 @@
 import React from 'react';
-import upframaLogoImg from '../assets/images/upframa.png';
 
 interface UpframaIconProps {
   size?: number | string;
@@ -8,21 +7,61 @@ interface UpframaIconProps {
 }
 
 /**
- * Official UpFrama Brand Icon using upframa.png
+ * Official UpFrama Vector Monogram Icon
+ * Exact vector replication of the UF Monogram with central upward arrow
  */
 export const UpframaIcon: React.FC<UpframaIconProps> = ({
   size = 36,
   className = '',
+  variant = 'orange',
 }) => {
   const sizePx = typeof size === 'number' ? `${size}px` : size;
+  const isDark = variant === 'dark';
+
+  const strokeColor = isDark ? '#FFFFFF' : '#F26522';
+  const arrowFill = isDark ? '#FFFFFF' : '#BA3700'; // Terracotta solid core
+  const arrowStroke = isDark ? '#FFFFFF' : '#F26522';
+
   return (
-    <img
-      src={upframaLogoImg}
-      alt="UpFrama Icon"
-      style={{ height: sizePx, width: 'auto' }}
-      className={`shrink-0 select-none object-contain ${className}`}
-      referrerPolicy="no-referrer"
-    />
+    <svg
+      style={{ width: sizePx, height: sizePx }}
+      viewBox="0 0 500 560"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`shrink-0 select-none ${className}`}
+      aria-label="UpFrama Logo Mark"
+    >
+      {/* Left 'U' Column Outer & Inner Stroke Path */}
+      <path
+        d="M 22 22 L 115 22 L 115 330 C 115 385 145 425 195 440 L 195 558 C 105 540 22 455 22 340 Z"
+        stroke={strokeColor}
+        strokeWidth="20"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Right 'F' Glyph Contours & Outer Lower Arch */}
+      <path
+        d="M 285 165 C 290 85 335 22 415 22 L 485 22 L 485 105 L 415 105 C 395 105 382 118 382 140 L 382 185 L 485 185 L 485 268 L 382 268 L 382 335 C 382 385 352 425 305 440 L 305 558 C 390 540 485 455 485 340 L 485 268"
+        stroke={strokeColor}
+        strokeWidth="20"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Central Solid Terracotta Upward Arrow with Outlined Border */}
+      <g>
+        {/* Solid Arrow Shaft & Arrowhead */}
+        <path
+          d="M 205 558 L 205 270 L 122 270 L 250 145 L 378 270 L 295 270 L 295 558 Z"
+          fill={arrowFill}
+          stroke={arrowStroke}
+          strokeWidth="18"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+      </g>
+    </svg>
   );
 };
 
@@ -36,42 +75,37 @@ interface UpframaLogoProps {
 }
 
 /**
- * Official UpFrama Logo Lockup using src/assets/images/upframa.png + UpFrama name
+ * Official UpFrama Logo Lockup with Vector Icon + "Upframa" Wordmark
  */
 export const UpframaLogo: React.FC<UpframaLogoProps> = ({
   size = 'md',
-  variant = 'dark',
+  variant = 'light',
   layout = 'horizontal',
   showBadge = false,
   className = '',
   badgeText = 'AI Ops',
 }) => {
   const sizeMap = {
-    sm: { height: 'h-6', text: 'text-sm font-medium tracking-tight', badge: 'text-[9px] px-1.5 py-0.5' },
-    md: { height: 'h-7 sm:h-8', text: 'text-base sm:text-lg font-medium tracking-tight', badge: 'text-[10px] px-2 py-0.5' },
-    lg: { height: 'h-8 sm:h-9', text: 'text-lg sm:text-xl font-medium tracking-tight', badge: 'text-xs px-2.5 py-0.5' },
-    xl: { height: 'h-10 sm:h-11', text: 'text-xl sm:text-2xl font-medium tracking-tight', badge: 'text-xs px-3 py-1' },
-    '2xl': { height: 'h-12 sm:h-14', text: 'text-2xl sm:text-3xl font-medium tracking-tight', badge: 'text-sm px-3.5 py-1' },
+    sm: { iconSize: 26, text: 'text-base font-bold tracking-tight', badge: 'text-[9px] px-1.5 py-0.5' },
+    md: { iconSize: 32, text: 'text-lg sm:text-xl font-bold tracking-tight', badge: 'text-[10px] px-2 py-0.5' },
+    lg: { iconSize: 40, text: 'text-xl sm:text-2xl font-bold tracking-tight', badge: 'text-xs px-2.5 py-0.5' },
+    xl: { iconSize: 50, text: 'text-2xl sm:text-3xl font-bold tracking-tight', badge: 'text-xs px-3 py-1' },
+    '2xl': { iconSize: 64, text: 'text-3xl sm:text-4xl font-bold tracking-tight', badge: 'text-sm px-3.5 py-1' },
   };
 
   const config = sizeMap[size] || sizeMap.md;
-  const isLight = variant === 'light';
+  const isDark = variant === 'dark';
 
   if (layout === 'vertical') {
     return (
       <div className={`inline-flex flex-col items-center text-center select-none ${className}`}>
-        <img
-          src={upframaLogoImg}
-          alt="UpFrama"
-          className={`${config.height} w-auto object-contain shrink-0`}
-          referrerPolicy="no-referrer"
-        />
-        <div className={`font-sans tracking-tight mt-1.5 ${config.text}`}>
-          <span className="text-[#F26522] font-medium">Up</span>
-          <span className={isLight ? 'text-zinc-800 font-normal' : 'text-zinc-100 font-normal'}>Frama</span>
+        <UpframaIcon size={config.iconSize * 1.5} variant={isDark ? 'dark' : 'orange'} />
+        <div className={`font-sans tracking-tight mt-2 ${config.text}`}>
+          <span className="text-[#F26522]">Up</span>
+          <span className={isDark ? 'text-slate-100' : 'text-[#3D1E0E]'}>frama</span>
         </div>
         {showBadge && (
-          <span className={`mt-1 font-mono font-medium tracking-wide bg-zinc-900 text-zinc-400 border border-zinc-800 rounded-md ${config.badge}`}>
+          <span className={`mt-1 font-mono font-medium tracking-wide ${isDark ? 'bg-zinc-900 text-zinc-400 border-zinc-800' : 'bg-orange-50 text-orange-600 border-orange-200/80'} border rounded-md ${config.badge}`}>
             {badgeText}
           </span>
         )}
@@ -80,23 +114,18 @@ export const UpframaLogo: React.FC<UpframaLogoProps> = ({
   }
 
   return (
-    <div className={`inline-flex items-center gap-2 sm:gap-2.5 select-none ${className}`}>
-      <img
-        src={upframaLogoImg}
-        alt="UpFrama"
-        className={`${config.height} w-auto object-contain shrink-0`}
-        referrerPolicy="no-referrer"
-      />
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+      <UpframaIcon size={config.iconSize} variant={isDark ? 'dark' : 'orange'} />
       
-      {/* Brand Name Soft Minimal Typography */}
+      {/* Official "Upframa" Wordmark: "Up" in #F26522, "frama" in #3D1E0E / slate-100 */}
       <div className="flex items-center gap-2">
-        <span className={`font-sans ${config.text} leading-none`}>
-          <span className="text-[#F26522] font-semibold">Up</span>
-          <span className={isLight ? 'text-zinc-800 font-normal' : 'text-zinc-100 font-normal'}>Frama</span>
+        <span className={`font-sans ${config.text} leading-none select-none tracking-tight`}>
+          <span className="text-[#F26522]">Up</span>
+          <span className={isDark ? 'text-slate-100' : 'text-[#3D1E0E]'}>frama</span>
         </span>
 
         {showBadge && (
-          <span className={`font-mono font-normal tracking-wide bg-zinc-900/80 text-zinc-400 border border-zinc-800 rounded-md ${config.badge}`}>
+          <span className={`font-mono font-semibold tracking-wide ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-orange-50 text-orange-600 border-orange-200/80'} border rounded-full ${config.badge}`}>
             {badgeText}
           </span>
         )}
@@ -105,45 +134,23 @@ export const UpframaLogo: React.FC<UpframaLogoProps> = ({
   );
 };
 
-/**
- * Minimal UpFrama Banner Display
- */
-export const UpframaBanner: React.FC<{ className?: string; onOpenAudit?: () => void }> = ({
-  className = '',
-  onOpenAudit,
-}) => {
+export const UpframaBanner: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
-    <div className={`relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#121215] p-6 sm:p-8 ${className}`}>
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
-          <div className="flex items-center gap-2.5">
-            <img
-              src={upframaLogoImg}
-              alt="UpFrama"
-              className="h-8 w-auto object-contain"
-              referrerPolicy="no-referrer"
-            />
-            <span className="font-sans font-medium text-xl tracking-tight leading-none">
-              <span className="text-[#F26522] font-semibold">Up</span>
-              <span className="text-zinc-100 font-normal">Frama</span>
-            </span>
+    <div className={`w-full p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700 flex items-center justify-between shadow-md ${className}`}>
+      <div className="flex items-center gap-4">
+        <UpframaIcon size={48} variant="dark" />
+        <div>
+          <div className="text-xl font-bold font-sans">
+            <span className="text-[#F26522]">Up</span>
+            <span className="text-white">frama</span>
           </div>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-2 max-w-md">
-            AI-powered precision automation pipelines for industrial supply chains, logistics, and scaling operations.
-          </p>
+          <div className="text-xs text-slate-400 font-mono">Autonomous Enterprise Workflow AI</div>
         </div>
-
-        {onOpenAudit && (
-          <button
-            onClick={onOpenAudit}
-            className="px-5 py-2.5 rounded-lg bg-[#F26522] hover:bg-[#DE5516] text-white font-medium text-xs sm:text-sm transition-colors cursor-pointer shrink-0 shadow-sm"
-          >
-            Schedule System Audit
-          </button>
-        )}
+      </div>
+      <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-mono text-emerald-400">
+        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        Zero Downtime Active
       </div>
     </div>
   );
 };
-
-export { upframaLogoImg };

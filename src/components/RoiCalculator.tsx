@@ -193,7 +193,7 @@ export const RoiCalculator: React.FC<RoiCalculatorProps> = ({ onOpenAudit }) => 
                 <button
                   id="roi-claim-savings-btn"
                   onClick={onOpenAudit}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#F26522] via-[#FF7A1A] to-[#EA580C] hover:from-orange-500 hover:to-orange-400 text-white font-bold text-sm shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 rounded-xl bg-[#F26522] hover:bg-[#DE5516] text-white font-semibold text-sm shadow-sm hover:shadow active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Claim Your Free Audit Blueprint</span>
                   <ArrowRight className="w-4 h-4" />

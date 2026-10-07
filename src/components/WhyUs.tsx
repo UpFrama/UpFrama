@@ -68,16 +68,20 @@ export const WhyUs: React.FC<WhyUsProps> = ({ onOpenAudit }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.45, delay: idx * 0.1, ease: 'easeOut' }}
-              whileHover={{ y: -3, transition: { duration: 0.15 } }}
               className="group flex flex-col h-full"
             >
-              <SpotlightCard className="p-6 h-full flex flex-col justify-between group-hover:border-zinc-700 transition-colors">
+              <SpotlightCard 
+                variant="glass-dark"
+                enable3DTilt={true}
+                maxTilt={6}
+                className="p-6 h-full flex flex-col justify-between"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-zinc-700 transition-colors">
+                    <div className="p-2 rounded-lg bg-zinc-900/80 border border-zinc-800 text-[#F26522] group-hover:border-orange-500/40 transition-colors">
                       {item.icon}
                     </div>
-                    <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800">
+                    <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-zinc-400 bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800">
                       {item.badge}
                     </span>
                   </div>
