@@ -47,7 +47,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAudit, onOpenBrandAssets }
                 <span>LinkedIn</span>
               </a>
               <a 
-                href="mailto:support@upframa.com" 
+                href="mailto:studio@upframa.com" 
                 className="p-2 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:text-white hover:border-slate-600 transition-colors flex items-center gap-2 text-xs font-mono" 
                 aria-label="Email"
               >
@@ -169,7 +169,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAudit, onOpenBrandAssets }
         {/* Bottom copyright row */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div>
-            © 2026 UpFrama Technologies Inc. All rights reserved.
+            © 2026 UpFrama Studio Inc. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center gap-5">
             <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
