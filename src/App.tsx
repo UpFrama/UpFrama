@@ -9,33 +9,27 @@ import { PricingStarter } from './components/PricingStarter';
 import { FaqSection } from './components/FaqSection';
 import { FinalCta } from './components/FinalCta';
 import { Footer } from './components/Footer';
-import { AuditBookingModal } from './components/AuditBookingModal';
 import { BrandAssetsModal } from './components/BrandAssetsModal';
 import { ScrollToTop } from './components/ScrollToTop';
 import { SmoothScrollProvider, useSmoothScroll } from './context/SmoothScrollContext';
 
 function AppContent() {
-  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
-  const [auditPreset, setAuditPreset] = useState<string>('General Operational Workflows');
   const { scrollTo, stop, start } = useSmoothScroll();
 
-  // Control background scroll when modals are open
+  // Control background scroll when brand assets modal is open
   useEffect(() => {
-    if (isAuditModalOpen || isBrandModalOpen) {
+    if (isBrandModalOpen) {
       stop();
       document.body.style.overflow = 'hidden';
     } else {
       start();
       document.body.style.overflow = '';
     }
-  }, [isAuditModalOpen, isBrandModalOpen, stop, start]);
+  }, [isBrandModalOpen, stop, start]);
 
-  const handleOpenAudit = (preset?: string) => {
-    if (preset) {
-      setAuditPreset(preset);
-    }
-    setIsAuditModalOpen(true);
+  const handleOpenAudit = (_preset?: string) => {
+    scrollTo('#discovery-calendar', { offset: -40, duration: 1.0 });
   };
 
   const handleExploreSolutions = () => {
@@ -79,24 +73,17 @@ function AppContent() {
         {/* 6. Transparent Starter Pricing */}
         <PricingStarter onOpenAudit={(tier) => handleOpenAudit(tier)} />
 
-        {/* 7. Frequently Asked Questions */}
-        <FaqSection onOpenAudit={() => handleOpenAudit('FAQ Inquiry')} />
-
-        {/* 8. Final Friendly CTA */}
+        {/* 7. Live Cal.com Discovery Booking */}
         <FinalCta onOpenAudit={() => handleOpenAudit()} />
+
+        {/* 8. Frequently Asked Questions ("Everything you need to know.") */}
+        <FaqSection onOpenAudit={() => handleOpenAudit('FAQ Inquiry')} />
       </main>
 
       {/* 12. Footer */}
       <Footer
         onOpenAudit={() => handleOpenAudit()}
         onOpenBrandAssets={() => setIsBrandModalOpen(true)}
-      />
-
-      {/* Interactive Audit Booking Modal */}
-      <AuditBookingModal
-        isOpen={isAuditModalOpen}
-        onClose={() => setIsAuditModalOpen(false)}
-        initialPreset={auditPreset}
       />
 
       {/* Official Brand Assets & Logos Modal */}
