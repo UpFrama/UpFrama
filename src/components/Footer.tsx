@@ -174,7 +174,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAudit, onOpenBrandAssets }
           <div className="flex flex-wrap items-center gap-5">
             <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
-            <a href="mailto:support@upframa.com" className="hover:text-slate-300 transition-colors">support@upframa.com</a>
+            <a href="mailto:studio@upframa.com" className="hover:text-slate-300 transition-colors">support@upframa.com</a>
           </div>
         </div>
 
