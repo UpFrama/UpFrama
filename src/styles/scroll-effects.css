@@ -1,0 +1,36 @@
+/* scroll-effects: generated from the single-file build; edit freely. */
+
+.rv { --rx: 56px; opacity: 0.1; transform: translateY(52px) scale(0.97); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--rd, 0s), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--rd, 0s); }
+
+.rv--l { transform: translateX(calc(var(--rx) * -1)) translateY(18px) scale(0.97); }
+
+.rv--r { transform: translateX(var(--rx)) translateY(18px) scale(0.97); }
+
+.rv--zoom { transform: translateY(44px) scale(0.9); }
+
+.rv.rv-in { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .rv { --rx: 22px; }
+}
+
+svg path[d^="M20 6 9 17"] { stroke-dasharray: 26; stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; }
+
+.draw-pre:not(.drawn) svg path[d^="M20 6 9 17"] { stroke-dashoffset: 26; }
+
+.sw { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.04em 0.08em 0.17em; margin: -0.04em -0.08em -0.17em; }
+
+.swi { display: inline-block; opacity: 0; transform: translateY(115%) rotate(5deg); transform-origin: 0 100%; transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) var(--wd, 0s), opacity 0.7s ease var(--wd, 0s); }
+
+.w-in .swi { opacity: 1; transform: none; }
+
+.section::after {
+  content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(242, 101, 34, 0.85) 50%, transparent);
+  transform: scaleX(var(--sl, 0)); opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section::after { display: none; }
+  .swi { opacity: 1; transform: none; }
+}

@@ -1,0 +1,83 @@
+/* calculator: generated from the single-file build; edit freely. */
+
+.calc { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px; align-items: stretch; }
+
+.calc-in { padding: 30px; display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+
+.field { display: flex; flex-direction: column; gap: 4px; }
+
+.field-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+
+.field label { font-size: 14.5px; letter-spacing: -0.015em; color: var(--stat); }
+
+.field output { font-size: 22px; font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums; }
+
+.assume { border-top: 1px solid var(--border-soft); padding-top: 22px; display: flex; flex-direction: column; gap: 20px; }
+
+.assume .field output { font-size: 16px; }
+
+.assume > p { font-size: 12.5px; color: var(--dim); line-height: 1.5; }
+
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; cursor: pointer; --p: 50%; }
+
+input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent) var(--p), rgba(255, 255, 255, 0.18) var(--p)); }
+
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: 50%; background: linear-gradient(180deg, #fff, #cfcfcf); border: 1px solid #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.6); }
+
+input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.18); }
+
+input[type="range"]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
+
+input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(180deg, #fff, #cfcfcf); border: 1px solid #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08); }
+
+input[type="range"]:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 4px; }
+
+.calc-out { padding: 30px; display: flex; flex-direction: column; gap: 22px; min-width: 0; border-color: rgba(242, 101, 34, 0.45); background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(0, 0, 0, 0.55) 48%, rgba(242, 101, 34, 0.1)); }
+
+.big { font-size: clamp(44px, 7vw, 76px); font-weight: 500; letter-spacing: -0.055em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+.per { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+.split { display: flex; flex-direction: column; gap: 8px; }
+
+.split-bar { height: 8px; border-radius: 4px; overflow: hidden; background: rgba(255, 255, 255, 0.16); display: flex; }
+
+.split-bar i { display: block; height: 100%; background: var(--dim); transition: width 0.3s ease; }
+
+.split-bar i + i { background: var(--accent); }
+
+.split p { font-size: 13px; color: var(--muted); }
+
+.split p b { color: #fff; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.mini { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--border-soft); }
+
+.mini > div { padding: 18px 0 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+.mini > div + div { padding-left: 20px; border-left: 1px solid var(--border-soft); }
+
+.mini dt { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+
+.mini dd { font-size: 34px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+.calc-out .btn { align-self: flex-start; }
+
+.fine { font-size: 12px; color: var(--dim); line-height: 1.5; }
+
+.calc-out .fine { margin-top: auto; }
+
+@media (max-width: 900px) {
+  .calc { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .mini { grid-template-columns: 1fr; }
+  .mini > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--border-soft); margin-top: 18px; }
+}
+
+@media (max-width: 560px) {
+  .calc-in, .calc-out { padding: 20px; }
+  .calc-out .btn { align-self: stretch; }
+}

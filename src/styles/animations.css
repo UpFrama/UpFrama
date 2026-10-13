@@ -1,0 +1,51 @@
+/* animations: generated from the single-file build; edit freely. */
+
+.appear {
+  animation-duration: 1.05s; animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--d, 0.08s);
+}
+
+.appear--scale { animation-name: in-scale; }
+
+.appear--soft { animation-name: in-soft; }
+
+.appear--mask { animation-name: in-mask; display: block; }
+
+.appear--pop { animation-name: in-pop; }
+
+.appear--btn { animation-name: in-btn; }
+
+.appear--side { animation-name: in-side; }
+
+.appear--stat { animation-name: in-stat; }
+
+.appear.is-in { animation: none; opacity: 1; transform: none; clip-path: none; filter: none; }
+
+@keyframes in-scale { from { opacity: 0; transform: scale(0.84); } to { opacity: 1; transform: none; } }
+
+@keyframes in-soft { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+@keyframes in-mask { from { opacity: 0; transform: translateY(40%); } to { opacity: 1; transform: none; } }
+
+@keyframes in-pop { 0% { opacity: 0; transform: scale(0.9); } 70% { opacity: 1; transform: scale(1.03); } 100% { opacity: 1; transform: scale(1); } }
+
+@keyframes in-btn { from { opacity: 0; transform: translateY(18px) scale(0.94); } to { opacity: 1; transform: none; } }
+
+@keyframes in-side { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
+
+@keyframes in-stat { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+@keyframes in-star { 0% { transform: scale(0.2) rotate(-50deg); } 65% { transform: scale(1.2) rotate(8deg); } 100% { transform: none; } }
+
+@keyframes in-em { from { opacity: 0.35; filter: blur(4px); } to { opacity: 1; filter: none; } }
+
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0.55); } 70% { box-shadow: 0 0 0 8px rgba(242, 101, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0); } }
+
+@keyframes shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+
+@keyframes drift { from { transform: translate3d(-4%, 0, 0) rotate(0deg); } to { transform: translate3d(4%, 2%, 0) rotate(8deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .appear { opacity: 1; transform: none; clip-path: none; filter: none; }
+}

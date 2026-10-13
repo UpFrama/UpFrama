@@ -1,0 +1,28 @@
+<div class="sim glass appear appear--soft" id="sim" style="--d:1.0s">
+  <div class="sim-side">
+    <div>
+      <p class="label">Live Call Simulator</p>
+      <p class="sim-help" style="margin-top:8px">Pick an inbound scenario and watch the agent handle it, turn by turn.</p>
+    </div>
+    <div class="sim-tabs" role="tablist" aria-label="Call scenarios"></div>
+  </div>
+  <div class="sim-live">
+    <div class="sim-bar">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="simStatus">Call complete</span>
+      <span class="sim-clock" id="simClock">0:00</span>
+    </div>
+    <canvas id="wave" aria-hidden="true"></canvas>
+    <ol class="feed" id="feed" aria-live="polite" aria-label="Call transcript"></ol>
+    <dl class="chips">
+      <div class="chip"><dt>Latency</dt><dd id="chipLat">—</dd></div>
+      <div class="chip"><dt>Intent</dt><dd id="chipIntent">—</dd></div>
+      <div class="chip"><dt>Urgency</dt><dd id="chipUrg">—</dd></div>
+      <div class="chip"><dt>Outcome</dt><dd id="chipOut">—</dd></div>
+    </dl>
+    <div class="sim-foot">
+      <p id="simBiz"></p>
+      <button class="btn btn-solid" id="simPlay" type="button">Replay call</button>
+    </div>
+  </div>
+</div>

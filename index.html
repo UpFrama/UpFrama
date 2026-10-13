@@ -1,24 +1,37 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UpFrama | AI-Powered Workflow Automation for Enterprise & Startups</title>
-    <meta name="description" content="Autonomous 24/7 AI Voice Calling Agents with sub-350ms latency, calendar booking, CRM sync, and telephone integration." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Cal inline embed loader -->
-    <script type="text/javascript">
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-      Cal("init", "discovery", {origin:"https://app.cal.com"});
-      Cal.config = Cal.config || {};
-      Cal.config.forwardQueryParams = true;
-    </script>
-  </head>
-  <body class="bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-[#F26522] selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Upframa builds AI voice agents that answer inbound calls, qualify leads and book appointments for service businesses.">
+  <meta name="theme-color" content="#000000">
+  <title>Upframa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+</head>
+<body style="background:#000;color:#fff">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="page">
+    <div class="menu-backdrop"></div>
+    <!-- @include components/ambient/ambient.html -->
+    <!-- @include components/header/header.html -->
 
+    <main>
+      <!-- @include components/hero/hero.html -->
+      <!-- @include components/scroll-band/scroll-band.html -->
+      <!-- @include components/demos/demos.html -->
+      <!-- @include components/capabilities/capabilities.html -->
+      <!-- @include components/industries/industries.html -->
+      <!-- @include components/calculator/calculator.html -->
+      <!-- @include components/steps/steps.html -->
+      <!-- @include components/pricing/pricing.html -->
+      <!-- @include components/booking/booking.html -->
+    </main>
+
+    <!-- @include components/footer/footer.html -->
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

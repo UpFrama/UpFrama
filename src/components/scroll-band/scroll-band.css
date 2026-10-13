@@ -1,0 +1,15 @@
+/* scroll-band: generated from the single-file build; edit freely. */
+
+.band { position: relative; overflow: hidden; padding-block: 44px; border-top: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 4px; }
+
+.band-row { display: flex; width: max-content; will-change: transform; }
+
+.band-set { display: flex; flex: none; }
+
+.band-set span { display: inline-flex; align-items: center; gap: 0.3em; padding-right: 0.3em; font-size: clamp(36px, 6.4vw, 96px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.12; white-space: nowrap; color: #e8e8e8; }
+
+.band-set span::after { content: ""; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--accent); flex: none; margin-left: 0.3em; }
+
+.band-row--b .band-set span { color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42); }
+
+.band-row { will-change: transform; }

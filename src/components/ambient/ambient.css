@@ -1,0 +1,9 @@
+/* ambient: generated from the single-file build; edit freely. */
+
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+
+.ambient i { position: absolute; border-radius: 50%; will-change: translate; }
+
+.ambient .o1 { width: 620px; height: 620px; left: -200px; top: 32vh; background: radial-gradient(circle, rgba(242, 101, 34, 0.12), transparent 68%); }
+
+.ambient .o2 { width: 720px; height: 720px; right: -240px; top: 58vh; background: radial-gradient(circle, rgba(150, 170, 215, 0.11), transparent 68%); }

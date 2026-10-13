@@ -1,0 +1,66 @@
+/* tokens: generated from the single-file build; edit freely. */
+
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --muted: #9a9a9a;
+  --stat: #d8d8d8;
+  --dim: #7d7d7d;
+  --accent: #F26522;
+  --border: rgba(255, 255, 255, 0.16);
+  --border-soft: rgba(255, 255, 255, 0.12);
+  --border-glass: rgba(198, 198, 198, 0.3);
+  --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Times New Roman", Times, serif;
+  --hdr-w: 1240px;
+  --logo: 15.5px;
+  --logo-mark: 22px;
+  --nav: 14px;
+  --nav-h: 40px;
+  --btn: 13.5px;
+  --btn-h: 40px;
+  --hero-btn-h: 42px;
+  --h1: 48px;
+  --h2: 38px;
+  --lede: 15.5px;
+  --badge: 12.5px;
+  --stat-size: 13.5px;
+  --header-y: 14px;
+  --header-x: 40px;
+  --stats-x: 72px;
+  --copy-max: 860px;
+  --lede-max: 520px;
+  --sec-y: 112px;
+  --sec-gap: 56px;
+  --wrap: 1180px;
+  --gutter: 24px;
+  color-scheme: dark;
+}
+
+@media (min-width: 1280px) {
+  :root { --h1: 54px; --lede: 16px; --header-x: 48px; --stats-x: 80px; --copy-max: 900px; }
+}
+
+@media (min-width: 1600px) {
+  :root { --logo: 17px; --logo-mark: 24px; --nav: 15px; --nav-h: 44px; --btn: 15px; --btn-h: 44px; --hero-btn-h: 48px; --h1: 64px; --h2: 46px; --lede: 18px; --badge: 13.5px; --stat-size: 15px; --header-y: 18px; --header-x: 64px; --stats-x: 96px; --copy-max: 980px; --lede-max: 600px; --wrap: 1320px; --sec-y: 136px; }
+}
+
+@media (min-width: 1920px) {
+  :root { --logo: 18px; --logo-mark: 26px; --nav: 16px; --nav-h: 48px; --btn: 16px; --btn-h: 48px; --hero-btn-h: 52px; --h1: 76px; --h2: 54px; --lede: 20px; --badge: 14.5px; --stat-size: 16px; --header-x: 80px; --stats-x: 120px; --copy-max: 1120px; --lede-max: 680px; --wrap: 1480px; --hdr-w: 1400px; }
+}
+
+@media (min-width: 2560px) {
+  :root { --h1: 88px; --lede: 22px; --header-x: 120px; --stats-x: 160px; --copy-max: 1280px; --lede-max: 760px; --wrap: 1640px; --hdr-w: 1560px; }
+}
+
+@media (max-width: 1279px) {
+  :root { --logo: 15px; --nav: 13px; --nav-h: 36px; --btn: 13px; --btn-h: 38px; --hero-btn-h: 40px; --h1: 42px; --h2: 34px; --lede: 15px; --badge: 12px; --stat-size: 12.5px; --header-x: 28px; --stats-x: 36px; --copy-max: 760px; --sec-y: 96px; }
+}
+
+@media (max-width: 900px) {
+  :root { --h1: 36px; --h2: 30px; --lede: 16.5px; --btn: 15px; --btn-h: 46px; --hero-btn-h: 48px; --logo: 16px; --badge: 13.5px; --stat-size: 15px; --sec-y: 80px; --sec-gap: 40px; --gutter: 20px; }
+}
+
+@media (max-width: 560px) {
+  :root { --h1: 34px; --lede: 16px; --header-x: 16px; --gutter: 20px; }
+}
