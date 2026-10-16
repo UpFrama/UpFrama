@@ -7,3 +7,10 @@
 .ambient .o1 { width: 620px; height: 620px; left: -200px; top: 32vh; background: radial-gradient(circle, rgba(242, 101, 34, 0.12), transparent 68%); }
 
 .ambient .o2 { width: 720px; height: 720px; right: -240px; top: 58vh; background: radial-gradient(circle, rgba(150, 170, 215, 0.11), transparent 68%); }
+
+/* Flowing light ribbons: a bundle of glowing strands drawn on a canvas behind every page.
+   The bundle bends into a new shape as you scroll and drifts slowly on its own. */
+.ribbons {
+  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease;
+}
+.ribbons.is-on { opacity: var(--rib-o, 0.85); }

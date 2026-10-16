@@ -3,7 +3,7 @@ import { onScrollFrame } from './scroll.js';
 
 // Elements that fade/slide in the first time they scroll into view.
 // Direction: left/right panels slide sideways, grid cards alternate, the rest rise.
-const REVEAL_TARGETS = ['.book', '.calc-in', '.calc-out', '.sec-head', '.sub-head', '.demo', '.diff > article', '.marquee', '.panel', '.ind', '.step', '.payg > article', '.included', '.foot > *', '.foot-bottom'];
+const REVEAL_TARGETS = ['.book', '.calc-in', '.calc-out', '.sec-head', '.sub-head', '.dk-deck', '.dk-foot', '.diff > article', '.marquee', '.panel', '.ind', '.step', '.payg > article', '.wd-svc', '.hm-about-copy', '.hm-points li', '.hm-svc', '.hm-road', '.wd-proj-media', '.wd-proj-text', '.wd-final', '.included', '.foot > *', '.foot-bottom'];
 
 export function initReveals() {
   // If the page is scrolled to the very bottom, anything still hidden is shown.
@@ -24,7 +24,9 @@ export function initReveals() {
       el.classList.add('rv');
       const dir = el.matches('.panel--old, .calc-in, .payg-main') ? 'rv--l'
         : el.matches('.panel--new, .calc-out, .payg-viz') ? 'rv--r'
-        : el.matches('.ind, .demo') ? (i % 2 ? 'rv--r' : 'rv--l') : '';
+        : el.matches('.wd-proj:nth-child(odd) .wd-proj-media, .wd-proj:nth-child(even) .wd-proj-text') ? 'rv--l'
+        : el.matches('.wd-proj:nth-child(even) .wd-proj-media, .wd-proj:nth-child(odd) .wd-proj-text') ? 'rv--r'
+        : el.matches('.ind') ? (i % 2 ? 'rv--r' : 'rv--l') : '';
       if (dir) el.classList.add(dir);
       el.style.setProperty('--rd', (Math.min(i % 4, 3) * 0.09) + 's');
       io.observe(el);

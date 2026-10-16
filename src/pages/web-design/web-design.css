@@ -1,0 +1,134 @@
+/* web-design page: services, projects, closing block, and the drifting work strip. */
+
+/* ---------- hero extras ---------- */
+.wd-hero { padding-bottom: 40px; }
+.wd-hero .proof { margin-top: 56px; }
+
+/* ---------- drifting work strip ---------- */
+.wd-work { margin-top: 56px; --th: 320px; }
+
+.wd-viewport {
+  position: relative; overflow: hidden; padding: 10px 0 34px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+.wd-viewport.is-static { overflow-x: auto; scrollbar-width: none; }
+.wd-viewport.is-static::-webkit-scrollbar { display: none; }
+
+.wd-track { display: flex; align-items: flex-start; gap: 20px; width: max-content; will-change: transform; }
+
+.wd-tile { flex: none; height: var(--th); margin: 0; perspective: 900px; }
+.wd-tile:nth-child(even) { margin-top: 26px; }
+
+.wd-shot {
+  position: relative; height: 100%; overflow: hidden; border-radius: 12px; background: #0a0a0a;
+  border: 1px solid var(--border-glass); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, border-color 0.4s;
+}
+.wd-shot img { display: block; height: 100%; width: auto; filter: saturate(0.65) brightness(0.72); transition: filter 0.5s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.wd-tile:hover .wd-shot { border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06); }
+.wd-tile:hover .wd-shot img { filter: none; transform: scale(1.045); }
+
+.wd-shot figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 2px; padding: 44px 16px 14px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
+  opacity: 0; transform: translateY(10px); transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wd-shot figcaption b { font-size: 14px; font-weight: 500; letter-spacing: -0.02em; color: #fff; }
+.wd-shot figcaption span { font-size: 12.5px; color: var(--stat); }
+.wd-tile:hover figcaption { opacity: 1; transform: none; }
+@media (hover: none) { .wd-shot figcaption { opacity: 1; transform: none; } .wd-shot img { filter: saturate(0.85) brightness(0.85); } }
+
+/* tiles rise in one after another when the strip first scrolls into view */
+.wd-work--js .wd-tile { opacity: 0; }
+.wd-work--js.is-in .wd-tile { animation: wd-in 1s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes wd-in { from { opacity: 0; transform: translateY(34px) scale(0.94); } to { opacity: 1; transform: none; } }
+
+/* ---------- services ---------- */
+.wd-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+.wd-svc { padding: 28px; display: flex; flex-direction: column; gap: 14px; min-width: 0; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s, box-shadow 0.35s; }
+.wd-svc:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 18px 40px rgba(0, 0, 0, 0.5); }
+
+.wd-ico { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 4px; background: linear-gradient(135deg, #3a3a3a, #0a0a0a); border: 1px solid rgba(198, 198, 198, 0.4); transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.wd-svc:hover .wd-ico { transform: scale(1.08) rotate(-4deg); }
+.wd-ico svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.wd-svc-d { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+
+.wd-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.wd-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.45; color: var(--stat); }
+.wd-list svg { flex: none; width: 15px; height: 15px; margin-top: 2px; fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.wd-best { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-soft); font-size: 13.5px; line-height: 1.45; color: var(--stat); }
+.wd-best span { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+
+/* ---------- projects ---------- */
+.wd-projs { display: flex; flex-direction: column; gap: 88px; }
+
+.wd-proj { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+.wd-proj:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
+.wd-proj:nth-child(even) .wd-proj-media { order: 2; }
+
+.wd-proj-media {
+  position: relative; height: 560px; border-radius: 16px; overflow: hidden; display: grid; place-items: center; min-width: 0;
+  border: 1px solid var(--border-glass); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.07), transparent 55%),
+    radial-gradient(90% 80% at 90% 100%, rgba(242, 101, 34, 0.1), transparent 60%),
+    #0b0b0c;
+}
+.wd-proj-par { display: grid; place-items: center; width: 100%; height: 100%; padding: 30px; perspective: 1000px; }
+.wd-proj-shot {
+  display: grid; max-width: 100%; max-height: 100%; border-radius: 10px; overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+}
+.wd-proj-shot img { display: block; max-width: 100%; max-height: 500px; width: auto; height: auto; object-fit: contain; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.wd-proj-media:hover .wd-proj-shot { box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.wd-proj-media:hover .wd-proj-shot img { transform: scale(1.03); }
+
+.wd-proj-text { display: flex; flex-direction: column; min-width: 0; }
+.wd-proj-idx { font-size: 13px; color: var(--dim); letter-spacing: 0.08em; margin-bottom: 14px; }
+.wd-proj-idx b { color: var(--accent); font-weight: 500; }
+.wd-proj-text h3 { font-size: 30px; letter-spacing: -0.04em; line-height: 1.15; }
+.wd-proj-type { color: var(--muted); font-size: 15px; margin-top: 6px; }
+.wd-tags { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.wd-tags li { font-size: 12px; padding: 5px 11px; border-radius: 999px; color: var(--stat); border: 1px solid var(--border); background: rgba(255, 255, 255, 0.04); }
+.wd-proj-desc { margin-top: 22px; font-size: 15.5px; line-height: 1.65; color: var(--stat); letter-spacing: -0.01em; }
+.wd-k { margin: 26px 0 12px; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+
+/* ---------- closing block ---------- */
+.wd-final-sec { padding-block: calc(var(--sec-y) * 0.8); }
+.wd-final { padding: 64px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; }
+.wd-final p { color: var(--muted); font-size: var(--lede); max-width: 46ch; line-height: 1.55; }
+.wd-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 10px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .wd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wd-proj, .wd-proj:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .wd-proj:nth-child(even) .wd-proj-media { order: 0; }
+  .wd-projs { gap: 72px; }
+  .wd-proj-media { height: 480px; }
+}
+
+@media (max-width: 640px) {
+  .wd-work { --th: 240px; margin-top: 44px; }
+  .wd-track { gap: 14px; }
+  .wd-tile:nth-child(even) { margin-top: 18px; }
+  .wd-grid { grid-template-columns: minmax(0, 1fr); }
+  .wd-svc { padding: 22px; }
+  .wd-proj-media { height: 400px; }
+  .wd-proj-par { padding: 20px; }
+  .wd-proj-shot img { max-height: 360px; }
+  .wd-proj-text h3 { font-size: 26px; }
+  .wd-final { padding: 44px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-work--js .wd-tile { opacity: 1; animation: none !important; }
+  .wd-shot, .wd-shot img, .wd-shot figcaption, .wd-proj-shot, .wd-proj-shot img { transition: none; }
+}

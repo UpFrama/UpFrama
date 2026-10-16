@@ -1,6 +1,8 @@
 /* hero: generated from the single-file build; edit freely. */
 
-.hero { position: relative; padding: 64px 0 72px; overflow: hidden; }
+/* The hero starts at the very top of the page, behind the floating navbar, so its glow and dots
+   run up under the bar instead of stopping at a hard edge below it. */
+.hero { --hdr-space: 96px; position: relative; margin-top: calc(-1 * var(--hdr-space)); padding: calc(64px + var(--hdr-space)) 0 72px; overflow: hidden; }
 
 .hero-bg { position: absolute; inset: 0; pointer-events: none; }
 
@@ -82,7 +84,7 @@ h1 em {
 }
 
 @media (max-width: 900px) {
-  .hero { padding: 40px 0 56px; }
+  .hero { padding: calc(40px + var(--hdr-space)) 0 56px; }
   .lede { max-width: 100%; }
   .badge { margin-bottom: 20px; }
   .proof { flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px var(--gutter) 0; white-space: normal; width: fit-content; }

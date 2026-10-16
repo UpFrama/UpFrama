@@ -10,6 +10,10 @@
 
 .rv.rv-in { opacity: 1; transform: none; }
 
+/* Section headings also come into focus from a soft blur (kept to headings: blur is costly on big cards). */
+.sec-head.rv { filter: blur(6px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--rd, 0s), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--rd, 0s), filter 0.9s ease var(--rd, 0s); }
+.sec-head.rv.rv-in { filter: none; }
+
 @media (max-width: 900px) {
   .rv { --rx: 22px; }
 }

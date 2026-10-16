@@ -44,7 +44,10 @@ export function initSimulator() {
       ctx.fillRect(x0 + i * (bw + gap), (H - h) / 2, bw, h);
     }
   }
-  function waveLoop(t) { drawWave(t); if (waveOn) requestAnimationFrame(waveLoop); }
+  // Only redraw the waveform while it is on screen.
+  var waveSeen = true;
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { waveSeen = es[0].isIntersecting; }).observe(cv);
+  function waveLoop(t) { if (waveSeen) drawWave(t); if (waveOn) requestAnimationFrame(waveLoop); }
   function startWave() { if (!waveOn && !reduce) { waveOn = true; requestAnimationFrame(waveLoop); } }
   function stopWave() { waveOn = false; setTimeout(function () { drawWave(performance.now()); }, 30); }
 

@@ -16,10 +16,10 @@ npm run preview   # serve the built site locally
 ## Structure
 
 ```
-index.html                  Page shell. Lists the components in page order.
+index.html, voice-ai.html, web-design.html   Page shells. Each lists its components in page order.
 vite.config.js              Small plugin that expands <!-- @include ... --> tags.
 src/
-  main.js                   Imports every stylesheet and starts each component.
+  main.js, voice-ai.js, web-design.js   One entry per page: imports its stylesheets and starts its components.
   config.js                 Cal.com link, contact email, embed on/off flag.
   styles/                   Shared styles
     tokens.css              Colors, fonts, spacing, per-breakpoint overrides
@@ -39,7 +39,15 @@ src/
     <name>.js               Behaviour (where it has any)
 ```
 
-Components, in page order: `header`, `ambient`, `hero` (contains `simulator`), `scroll-band`, `demos`, `capabilities` (contains `integrations`), `industries`, `calculator`, `steps` (How it works), `pricing`, `booking`, `footer`.
+The site has three pages, each with its own entry file and root HTML file:
+
+| Page | HTML | Entry | Contents |
+|---|---|---|---|
+| Home (short intro to Upframa) | `index.html` | `src/main.js` | `pages/home/` (hero, about, services, how we work), `booking`, `footer` |
+| Voice AI | `voice-ai.html` | `src/voice-ai.js` | `hero` (with `simulator`), `scroll-band`, `demos`, `capabilities` (with `integrations`), `industries`, `calculator`, `pages/voice-ai/va-process.html`, `pricing`, `booking` |
+| Website design | `web-design.html` | `src/web-design.js` | `pages/web-design/` (hero with work strip, services, projects, process, closing block) |
+
+All pages share `ambient` (glow orbs plus the flowing light ribbons drawn on a canvas), `header`, `footer`, the `portal` scroll moment (each page has its own statement in its `*-portal.html` partial). The shared header/footer use three tokens that `vite.config.js` fills per page: `{{home}}` (so `#section` links go back to the home page), `{{wd_active}}` and `{{va_active}}` (highlight the current page in the nav). Project images live in `src/assets/work/`.
 
 ### Editing
 

@@ -30,7 +30,7 @@ export function initHeaderScroll() {
 export function initScrollspy() {
   if (!HAS_IO) return;
   const spyLinks = $$('#site-nav a[data-spy]');
-  const spyMap = { top: '', demos: 'capabilities', capabilities: 'capabilities', industries: 'industries', calculator: 'calculator', 'how-it-works': 'how-it-works', pricing: 'pricing', book: '' };
+  const spyMap = { top: '', services: 'services', about: 'services', 'how-it-works': 'how-it-works', pricing: 'pricing', demos: '', book: '' };
   const spy = new IntersectionObserver((es) => {
     es.forEach((e) => {
       if (!e.isIntersecting) return;
