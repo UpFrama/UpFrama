@@ -36,11 +36,17 @@ function initRibbons() {
   const dust = [];
 
   const resize = () => {
-    small = window.innerWidth < 760;
-    // Drawn at reduced resolution and scaled up by the browser: the strands are soft glows,
-    // so this looks the same and costs a fraction of a full-resolution canvas.
-    dpr = small ? 0.5 : 0.6;
-    W = window.innerWidth; H = window.innerHeight;
+    const nw = window.innerWidth, nh = window.innerHeight;
+    // Phones resize the viewport as the address bar slides in and out; ignore those small
+    // height-only changes so the canvas is not rebuilt in the middle of a scroll.
+    if (W && nw === W && Math.abs(nh - H) < 140) return;
+    small = nw < 760;
+    // Phones get a full-sharpness canvas (they draw few strands, so it stays cheap and the
+    // high-density screen would otherwise make the lines look blurry). Larger screens draw
+    // at a reduced resolution to save work; the soft strands still look clean there.
+    const ratio = window.devicePixelRatio || 1;
+    dpr = small ? Math.min(ratio, 2) : Math.min(ratio, 2) * 0.6;
+    W = nw; H = nh;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
     N = small ? 12 : 20; STEPS = small ? 30 : 40;
     dust.length = 0;
@@ -98,8 +104,8 @@ function initRibbons() {
       g.addColorStop(Math.min(0.98, pk + 0.3), 'rgba(' + tint + ',' + (core * 0.7).toFixed(3) + ')');
       g.addColorStop(1, 'rgba(' + tint + ',0)');
       ctx.strokeStyle = g;
-      if (i % 3 === 0) { ctx.globalAlpha = 0.1; ctx.lineWidth = small ? 7 : 10; ctx.stroke(path); } // soft glow
-      ctx.globalAlpha = 1; ctx.lineWidth = i % 5 === 0 ? 2.2 : 1.5; ctx.stroke(path); // fine strand
+      if (i % 3 === 0) { ctx.globalAlpha = small ? 0.08 : 0.1; ctx.lineWidth = small ? 6 : 10; ctx.stroke(path); } // soft glow
+      ctx.globalAlpha = 1; ctx.lineWidth = small ? (i % 5 === 0 ? 1.4 : 0.9) : (i % 5 === 0 ? 2.2 : 1.5); ctx.stroke(path); // fine strand
     }
 
     // Soft glow where the strands gather.

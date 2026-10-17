@@ -53,7 +53,7 @@
 
 h1 { display: flex; flex-direction: column; align-items: center; font-size: var(--h1); font-weight: 500; letter-spacing: -0.045em; line-height: 1.12; color: #fff; }
 
-.headline-line { display: block; overflow: hidden; padding: 0.06em 0.15em 0.14em; text-wrap: balance; }
+.headline-line { display: block; overflow: hidden; padding: 0.06em 0.15em 0.24em; margin-bottom: -0.1em; text-wrap: balance; }
 
 h1 em {
   font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.08em; letter-spacing: -0.03em; color: var(--accent);
@@ -61,6 +61,11 @@ h1 em {
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   animation: in-em 1.2s 0.72s both, shimmer 5.5s linear 2.2s infinite;
 }
+
+/* The gradient text is painted only inside the word's box, and italic letters such as
+   the tail of a "g" reach outside it. Extra padding (cancelled by negative margins)
+   gives those tails room so they are not cut off. */
+h1 em { display: inline-block; padding: 0.04em 0.12em 0.22em 0.14em; margin: -0.04em -0.12em -0.22em -0.14em; }
 
 .lede { max-width: var(--lede-max); margin-top: 18px; color: var(--muted); font-size: var(--lede); font-weight: 400; line-height: 1.55; letter-spacing: -0.015em; }
 
