@@ -15,10 +15,11 @@ import './components/steps/steps.css';
 import './components/footer/footer.css';
 import './pages/web-design/web-design.css';
 import './components/portal/portal.css';
+import './styles/glassmorphism.css';
 import './styles/scroll-effects.css';
 
 import { initAppear } from './js/appear.js';
-import { initScroll } from './js/scroll.js';
+import { initScroll, initGlassGuard } from './js/scroll.js';
 import { initReveals } from './js/reveal.js';
 import { initHeadings } from './js/headings.js';
 import { initScrub } from './js/scrub.js';
@@ -41,6 +42,7 @@ function init() {
   initHero();
   initAmbient();
   initScroll();
+  initGlassGuard();
 
   initReveals();
   initSteps();

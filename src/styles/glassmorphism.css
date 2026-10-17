@@ -1,0 +1,78 @@
+/* =====================================================================
+   Glassmorphism (every page)
+   Frosted, see-through panels with a bright edge and a faint shine,
+   sitting over soft orange and blue colour glows so the frosting has
+   something to show. Loaded after the component styles so it wins.
+   ===================================================================== */
+.page {
+  --gl-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.07));
+  --gl-border: rgba(255, 255, 255, 0.16);
+  --gl-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(255, 255, 255, 0.05), 0 24px 60px rgba(0, 0, 0, 0.38);
+  --gl-blur: blur(12px);
+}
+
+/* Shared glass surface */
+.page .glass,
+.page .step,
+.page .proof,
+.page .badge,
+.page .btn-ghost {
+  background: var(--gl-bg);
+  border: 1px solid var(--gl-border);
+  box-shadow: var(--gl-shadow);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+}
+.page .glass { border-radius: 20px; }
+.page .glass:hover { border-color: rgba(255, 255, 255, 0.32); }
+.page .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.4); background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07)); }
+
+/* A soft diagonal shine across cards */
+.page .hm-svc::before, .page .hm-points li::before, .page .wd-svc::before, .page .ind::before, .page .step::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 32%, transparent 70%, rgba(255, 255, 255, 0.04));
+}
+.page .hm-svc > *, .page .hm-points li > *, .page .wd-svc > *, .page .ind > * { position: relative; }
+
+/* Colour glows behind groups of glass (static, so they cost nothing while scrolling) */
+.page .hm-about, .page .hm-grid, .page .steps, .page .matrix, .page .calc, .page .payg, .page .ind-grid, .page .wd-grid, .page .dk-deck { position: relative; isolation: isolate; }
+.page .hm-about::after, .page .hm-grid::after, .page .steps::before, .page .matrix::after, .page .calc::after, .page .payg::after, .page .ind-grid::after, .page .wd-grid::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; inset: -10% 6%;
+  background: radial-gradient(closest-side at 28% 45%, rgba(242, 101, 34, 0.38), transparent), radial-gradient(closest-side at 74% 55%, rgba(120, 150, 255, 0.26), transparent);
+}
+.page .hm-about::after { inset: -6% -4% -6% 46%; background: radial-gradient(closest-side at 40% 35%, rgba(242, 101, 34, 0.42), transparent), radial-gradient(closest-side at 70% 80%, rgba(110, 140, 255, 0.26), transparent); }
+.page .steps::before, .page .calc::after { background: radial-gradient(closest-side at 30% 50%, rgba(120, 150, 255, 0.24), transparent), radial-gradient(closest-side at 72% 50%, rgba(242, 101, 34, 0.32), transparent); }
+#demos .wrap { position: relative; isolation: isolate; }
+#demos .wrap::after { content: ""; position: absolute; z-index: -1; pointer-events: none; inset: 20% 4% -4%; background: radial-gradient(closest-side at 22% 50%, rgba(242, 101, 34, 0.34), transparent), radial-gradient(closest-side at 80% 40%, rgba(120, 150, 255, 0.24), transparent); }
+
+/* Pills: hero badge, the hero highlights bar and the hero buttons */
+.page .badge { border-radius: 999px; }
+.page .proof { width: fit-content; max-width: calc(100% - 2 * var(--gutter)); margin: 56px auto 0; padding: 14px 28px; gap: 36px; border-radius: 999px; }
+.page .hero-actions .btn { border-radius: 999px; }
+
+/* Process steps become glass cards (no connecting line) */
+.page .steps { gap: 16px; }
+.page .step { padding: 24px 22px; border-radius: 20px; }
+.page .steps .step::before { display: none; }
+
+/* Larger panels get rounder corners */
+.page .book, .page .dk-deck, .page .sim, .page .wd-final { border-radius: 28px; }
+
+@media (max-width: 900px) {
+  .page .proof { border-radius: 24px; padding: 18px 22px; gap: 14px; margin-top: 40px; }
+  .page .step { padding: 22px 20px 22px 76px; min-height: 0; }
+  .page .step .n { left: 20px; top: 22px; }
+}
+@media (max-width: 560px) {
+  .page .glass, .page .step { border-radius: 18px; }
+  .page .book, .page .dk-deck, .page .sim, .page .wd-final { border-radius: 22px; }
+}
+
+/* Browsers without backdrop blur: make the panels a little more solid instead. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .page { --gl-bg: linear-gradient(135deg, rgba(40, 40, 44, 0.92), rgba(16, 16, 18, 0.92)); }
+}
+
+/* Safety net: if scrolling is measured to be slow on this device, keep the glass look
+   but drop the live blur (see initGlassGuard in js/scroll.js). */
+html.glass-lite .page { --gl-bg: linear-gradient(135deg, rgba(48, 48, 52, 0.9), rgba(18, 18, 20, 0.92) 50%, rgba(30, 32, 40, 0.9)); }
+html.glass-lite .page .glass, html.glass-lite .page .step, html.glass-lite .page .proof, html.glass-lite .page .badge, html.glass-lite .page .btn-ghost { -webkit-backdrop-filter: none; backdrop-filter: none; }

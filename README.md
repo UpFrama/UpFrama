@@ -77,7 +77,6 @@ The embed needs the site to be served over http(s). It will not render when `ind
 ## Things to check before launch
 
 - Logo is a vector trace of the supplied PNG. Swap in the official SVG if you have one (`src/components/header/header.html`, `footer.html`).
-- LinkedIn link in the footer is a guess (`https://www.linkedin.com/company/upframa`).
 - Privacy, Terms and Brand Assets footer links are `mailto:` placeholders.
 - The ROI calculator's cost-per-month slider uses a placeholder default.
 - The audio demos and live call simulator are simulated in the browser, not real calls.
